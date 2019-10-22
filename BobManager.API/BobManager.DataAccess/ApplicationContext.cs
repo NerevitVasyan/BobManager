@@ -7,7 +7,6 @@ namespace BobManager.DataAccess
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-
         }
         public DbSet<CalendarEvent> CalendarEvents { get; set; }
         public DbSet<Group> Groups { get; set; }
@@ -39,6 +38,5 @@ namespace BobManager.DataAccess
                 .WithMany(c => c.UsersGroups)
                 .HasForeignKey(sc => sc.GroupRoleId);
         }
-
     }
 }
