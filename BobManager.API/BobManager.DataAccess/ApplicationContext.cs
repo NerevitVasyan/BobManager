@@ -1,9 +1,11 @@
 ﻿using BobManager.DataAccess.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BobManager.DataAccess
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : IdentityDbContext<User>
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
@@ -15,7 +17,6 @@ namespace BobManager.DataAccess
         public DbSet<SpendingCategory> SpendingCategories { get; set; }
         public DbSet<ToDo> ToDos { get; set; }
         public DbSet<ToDoCategory> ToDoCategories { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<UsersGroup> UsersGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
