@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BobManager.Dto.DtoModels
+{
+    public class GroupRoleDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+}
