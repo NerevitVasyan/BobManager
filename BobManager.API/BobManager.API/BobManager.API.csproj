@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Api\" />
+    <Folder Include="Logs\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -17,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BobManager.Domain\BobManager.Domain.csproj" />
     <ProjectReference Include="..\BobManager.Dto\BobManager.Dto.csproj" />
+    <ProjectReference Include="..\BobManager.Helpers\BobManager.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

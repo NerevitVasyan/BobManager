@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace BobManager.API.Controllers
 {
@@ -10,10 +11,17 @@ namespace BobManager.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly ILogger logger;
+        public ValuesController(ILogger logger) {
+            this.logger = logger;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+
+            logger.LogInformation("SOME", "asd");
             return new string[] { "value1", "value2" };
         }
 
