@@ -31,9 +31,9 @@ namespace BobManager.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(opt=>
+            services.AddDbContext<ApplicationContext>(opt =>
                 opt.UseSqlServer(Configuration["ConnectionString"],
-                b=>b.MigrationsAssembly("BobManager.API"))
+                b => b.MigrationsAssembly("BobManager.API"))
             );
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>()
@@ -56,7 +56,7 @@ namespace BobManager.API
                         ValidIssuer = Configuration["JwtIssuer"],
                         ValidAudience = Configuration["JwtIssuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
-                        ClockSkew = TimeSpan.Zero 
+                        ClockSkew = TimeSpan.Zero
                     };
                 });
 

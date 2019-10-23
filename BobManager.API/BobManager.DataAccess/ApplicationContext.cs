@@ -20,7 +20,7 @@ namespace BobManager.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UsersGroup>()
-                .HasKey(t => new { t.UserId, t.GroupId,t.GroupRoleId });
+                .HasKey(t => new { t.UserId, t.GroupId, t.GroupRoleId });
 
             modelBuilder.Entity<UsersGroup>()
                 .HasOne(sc => sc.Group)
