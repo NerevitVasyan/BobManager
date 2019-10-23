@@ -22,11 +22,9 @@ namespace BobManager.API.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
 
-        public AccountController(
-          UserManager<User> userManager,
-          SignInManager<User> signInManager,
-          IConfiguration configuration
-          )
+        public AccountController(UserManager<User> userManager,
+                                 SignInManager<User> signInManager,
+                                 IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
