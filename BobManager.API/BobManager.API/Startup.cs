@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BobManager.Helpers.Extentions;
 using BobManager.Helpers.Loggers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,6 +53,7 @@ namespace BobManager.API
             }
 
             app.UseHttpsRedirection();
+            app.UseMiddlewareException();
             app.UseMvc();
         }
     }

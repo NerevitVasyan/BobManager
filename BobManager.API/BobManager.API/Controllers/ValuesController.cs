@@ -11,17 +11,13 @@ namespace BobManager.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly ILogger logger;
-        public ValuesController(ILogger logger) {
-            this.logger = logger;
-        }
 
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
 
-            logger.LogInformation("SOME", "asd");
+            throw new Exception("lox");
             return new string[] { "value1", "value2" };
         }
 
