@@ -10,6 +10,7 @@ namespace BobManager.Helpers.Logger
         public string FullPath { get; private set; }
         public List<LogLevel> LogLevels { get; private set; } = new List<LogLevel>();
         public object _lock { get; private set; } = new object();
+
         public LoggingFile(string path)
         {
             if (!SetPath(path))
@@ -19,16 +20,19 @@ namespace BobManager.Helpers.Logger
                     throw new ArgumentException("File doesn't exists!", "path");
             }
         }
+
         public LoggingFile(string path, LogLevel logLevel) : this(path)
         {
             if (!AddLogLevel(logLevel))
                 throw new ArgumentException("This type logging doesn't exists or logLevel already added!", "logLevel");
         }
+
         public LoggingFile(string path, LogLevel[] logLevels) : this(path)
         {
             if (!AddLogLevels(logLevels))
                 throw new ArgumentException("This type logging doesn't exists or logLevel already added!", "logLevels");
         }
+
         public bool SetPath(string newPath)
         {
             string fullPath = Path.GetFullPath(newPath);
@@ -37,6 +41,7 @@ namespace BobManager.Helpers.Logger
             FullPath = fullPath;
             return true;
         }
+
         public bool AddLogLevel(LogLevel logLevel)
         {
             if (Enum.IsDefined(typeof(LogLevel), logLevel) &&
@@ -47,6 +52,7 @@ namespace BobManager.Helpers.Logger
             }
             return false;
         }
+
         public bool AddLogLevels(LogLevel[] logLevels)
         {
             foreach (var item in logLevels)
@@ -56,6 +62,7 @@ namespace BobManager.Helpers.Logger
             LogLevels.AddRange(logLevels);
             return true;
         }
+
         public bool RemoveLogLevel(LogLevel logLevel)
         {
             if (IsIssetLogLevel(logLevel))
@@ -65,10 +72,12 @@ namespace BobManager.Helpers.Logger
             }
             return false;
         }
+
         public bool IsIssetLogLevel(LogLevel logLevel)
         {
             return LogLevels.Exists((x) => x == logLevel);
         }
+
         public void AppendAllText(string text)
         {
             lock (_lock)
