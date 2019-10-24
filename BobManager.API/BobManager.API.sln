@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobManager.Domain", "BobManager.Domain\BobManager.Domain.csproj", "{CC97D144-A06B-49AE-BD77-AD6E1A8AA6B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BobManager.Domain", "BobManager.Domain\BobManager.Domain.csproj", "{CC97D144-A06B-49AE-BD77-AD6E1A8AA6B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobManager.DataAccess", "BobManager.DataAccess\BobManager.DataAccess.csproj", "{789F530D-5F24-4A7C-9AC5-1666025956EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BobManager.DataAccess", "BobManager.DataAccess\BobManager.DataAccess.csproj", "{789F530D-5F24-4A7C-9AC5-1666025956EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobManager.Dto", "BobManager.Dto\BobManager.Dto.csproj", "{28BD8220-0248-41E4-B88D-D65D2512867A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BobManager.Dto", "BobManager.Dto\BobManager.Dto.csproj", "{28BD8220-0248-41E4-B88D-D65D2512867A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobManager.API", "BobManager.API\BobManager.API.csproj", "{F23BA711-F57F-4032-8B4B-6491EB46B045}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BobManager.API", "BobManager.API\BobManager.API.csproj", "{F23BA711-F57F-4032-8B4B-6491EB46B045}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobManager.Helpers", "BobManager.Helpers\BobManager.Helpers.csproj", "{329881B9-141B-4EE5-B7CE-763515E66E53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F23BA711-F57F-4032-8B4B-6491EB46B045}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F23BA711-F57F-4032-8B4B-6491EB46B045}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F23BA711-F57F-4032-8B4B-6491EB46B045}.Release|Any CPU.Build.0 = Release|Any CPU
+		{329881B9-141B-4EE5-B7CE-763515E66E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329881B9-141B-4EE5-B7CE-763515E66E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329881B9-141B-4EE5-B7CE-763515E66E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329881B9-141B-4EE5-B7CE-763515E66E53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

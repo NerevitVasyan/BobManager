@@ -5,7 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using BobManager.DataAccess;
 using BobManager.DataAccess.Entities;
+using BobManager.DataAccess.Interfaces;
+using BobManager.DataAccess.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using BobManager.Helpers.Extentions;
+using BobManager.Helpers.Loggers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -22,9 +26,18 @@ namespace BobManager.API
 {
     public class Startup
     {
+        private readonly FileLogger fileLogger = new FileLogger();
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            fileLogger.AddFile(new Helpers.Logger.LoggingFile("logs\\logTrace.log", LogLevel.Trace));
+            fileLogger.AddFile(new Helpers.Logger.LoggingFile("logs\\logDebug.log", LogLevel.Debug));
+            fileLogger.AddFile(new Helpers.Logger.LoggingFile("logs\\logInformation.log", LogLevel.Information));
+            fileLogger.AddFile(new Helpers.Logger.LoggingFile("logs\\logWarning.log", LogLevel.Warning));
+            fileLogger.AddFile(new Helpers.Logger.LoggingFile("logs\\logError.log", LogLevel.Error));
+            fileLogger.AddFile(new Helpers.Logger.LoggingFile("logs\\logCritical.log", LogLevel.Critical));
+            fileLogger.AddFile(new Helpers.Logger.LoggingFile("logs\\logNone.log", LogLevel.None));
         }
 
         public IConfiguration Configuration { get; }
@@ -35,6 +48,10 @@ namespace BobManager.API
                 opt.UseSqlServer(Configuration["ConnectionString"],
                 b => b.MigrationsAssembly("BobManager.API"))
             );
+
+            services.AddScoped<DbContext, ApplicationContext>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
@@ -86,6 +103,7 @@ namespace BobManager.API
             }
 
             app.UseHttpsRedirection();
+            app.UseMiddlewareException();
             app.UseAuthentication();
             app.UseMvc();
         }
