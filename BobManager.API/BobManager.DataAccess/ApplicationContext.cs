@@ -36,6 +36,8 @@ namespace BobManager.DataAccess
                 .HasOne(sc => sc.GroupRole)
                 .WithMany(c => c.UsersGroups)
                 .HasForeignKey(sc => sc.GroupRoleId);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

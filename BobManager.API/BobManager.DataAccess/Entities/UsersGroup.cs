@@ -5,7 +5,7 @@ namespace BobManager.DataAccess.Entities
     public class UsersGroup
     {
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public User User { get; set; }
         [ForeignKey("Group")]
         public int GroupId { get; set; }
