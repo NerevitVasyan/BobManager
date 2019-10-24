@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using BobManager.DataAccess;
 using BobManager.DataAccess.Entities;
+using BobManager.DataAccess.Interfaces;
+using BobManager.DataAccess.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +37,10 @@ namespace BobManager.API
                 opt.UseSqlServer(Configuration["ConnectionString"],
                 b => b.MigrationsAssembly("BobManager.API"))
             );
+
+            services.AddScoped<DbContext, ApplicationContext>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
