@@ -7,7 +7,7 @@ import { baseAPI } from 'src/app/consts/const'
   providedIn: 'root'
 })
 
-export class BaseHttpService {
+export class BaseService {
   constructor(private httpClient: HttpClient) {}
 
   public get(path: string) {

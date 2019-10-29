@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BobManager.Dto.DtoResults;
+using BobManager.Helpers.Managers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,11 +13,17 @@ namespace BobManager.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private ClientErrorManager clientErrorManager;
+        public ValuesController(ClientErrorManager clientErrorManager) {
+            this.clientErrorManager = clientErrorManager ?? throw new ArgumentNullException(nameof(clientErrorManager));
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<ResultDto> Get()
         {
-            return new string[] { "value1", "value2" };
+            throw new ArgumentNullException();
+            return clientErrorManager.MapErrorIDToResultDto(203, new { Ahuenno = "Da zayebic"}); // Example using client error manager
         }
 
         // GET api/values/5

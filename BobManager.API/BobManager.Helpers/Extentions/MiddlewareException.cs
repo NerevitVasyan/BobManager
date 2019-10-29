@@ -1,33 +1,35 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BobManager.Helpers.Managers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 namespace BobManager.Helpers.Extentions
 {
     public class MiddlewareException
     {
-        private readonly RequestDelegate _next;
-        private readonly ILogger logger;
-        public MiddlewareException(RequestDelegate next, ILogger logger)
+        private readonly RequestDelegate next;
+        private readonly GlobalExceptionManager exManager;
+
+        public MiddlewareException(RequestDelegate next, GlobalExceptionManager exManager)
         {
-            _next = next ?? throw new ArgumentNullException(nameof(next));
-            this.logger = logger;
+            this.next = next ?? throw new ArgumentNullException(nameof(next));
+            this.exManager = exManager ?? throw new ArgumentNullException(nameof(exManager));
         }
+
         public async Task Invoke(HttpContext context)
         {
             try
             {
-                await _next(context);
+                await next(context);
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, $"[{DateTime.Now.ToString()}][{context.Connection.RemoteIpAddress.MapToIPv4()}]: " + ex.Message);
-                context.Response.StatusCode = 500;
-                context.Response.ContentType = "text/html; charset=utf-8";
-                await context.Response.WriteAsync("<b>SERVER ERROR</b>");
+                var res = exManager.MapExceptionToResultDto(context, ex);
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(res));
             }
         }
     }
