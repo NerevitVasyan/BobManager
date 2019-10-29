@@ -1,4 +1,5 @@
-﻿using BobManager.DataAccess.Entities;
+﻿using BobManager.DataAccess.Configuration;
+using BobManager.DataAccess.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,9 @@ namespace BobManager.DataAccess
                 .HasForeignKey(sc => sc.GroupRoleId);
 
             base.OnModelCreating(modelBuilder);
+
+            var initializer = new BobManagerContextInitializer();
+            initializer.Seed(this);
         }
     }
 }
