@@ -22,8 +22,7 @@ namespace BobManager.API.Controllers
         [HttpGet]
         public ActionResult<ResultDto> Get()
         {
-            throw new ArgumentNullException();
-            return clientErrorManager.MapErrorIDToResultDto(203, new { Ahuenno = "Da zayebic"}); // Example using client error manager
+            return null;
         }
 
         // GET api/values/5

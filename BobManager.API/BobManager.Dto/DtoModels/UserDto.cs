@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BobManager.Dto.DtoModels
+﻿namespace BobManager.Dto.DtoModels
 {
     public class UserDto
     {

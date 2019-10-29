@@ -21,6 +21,7 @@ using BobManager.Domain.Services.Implementation;
 using BobManager.Domain.Mapping;
 using AutoMapper;
 using BobManager.Helpers.Managers;
+using BobManager.Helpers.Extentions;
 
 namespace BobManager.API
 {
