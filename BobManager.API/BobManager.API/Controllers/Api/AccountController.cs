@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
-using BobManager.Domain.Interfaces;
-using BobManager.Dto.DtoModels;
-using BobManager.Dto.DtoResults;
+using BobManager.DataAccess.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BobManager.API.Controllers

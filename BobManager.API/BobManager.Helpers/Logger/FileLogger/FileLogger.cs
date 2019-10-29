@@ -46,7 +46,6 @@ namespace BobManager.Helpers.Loggers
 
         public bool IsEnabled(LogLevel logLevel)
         {
-            //return logLevel == LogLevel.Trace;
             return true;
         }
 
@@ -57,8 +56,6 @@ namespace BobManager.Helpers.Loggers
                                 Func<TState, Exception, string> formatter
                                 )
         {
-            //if (formatter == null || formatter.Target == null)
-            //    formatter = StringExtensions.ExceptionFormatter;
             string text = formatter(state, exception) + Environment.NewLine;
             foreach (var item in Files)
                 if (item.IsIssetLogLevel(logLevel))
