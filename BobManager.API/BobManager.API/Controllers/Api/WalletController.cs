@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BobManager.Domain.Services.Abstraction;
 using BobManager.Dto.DtoModels;
 using BobManager.Dto.DtoResults;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BobManager.API.Controllers.Api
@@ -25,9 +20,7 @@ namespace BobManager.API.Controllers.Api
         [HttpGet]
         public Task<CollectionResultDto<SpendingDto>> GetSpendings()
         {
-            
                 return walletService.GetSpendigs();
-            
         }
     }
 }

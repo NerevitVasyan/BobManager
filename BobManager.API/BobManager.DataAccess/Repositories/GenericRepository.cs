@@ -48,7 +48,7 @@ namespace BobManager.DataAccess.Repositories
         public async Task<IEnumerable<TEntity>> GetAllInclude(params Expression<Func<TEntity, object>>[] includes)
         {
             return await includes.Aggregate(db.Set<TEntity>().AsQueryable(), 
-                (current, includeProperty) => 
+                (current, includeProperty) =>
                     current.Include(includeProperty)).ToListAsync();
         }
 

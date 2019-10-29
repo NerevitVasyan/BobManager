@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using BobManager.DataAccess.Entities;
 using BobManager.Dto.DtoModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BobManager.Domain.Mapping
 {
