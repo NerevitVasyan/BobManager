@@ -1,26 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
 using BobManager.DataAccess;
 using BobManager.DataAccess.Entities;
 using BobManager.DataAccess.Interfaces;
 using BobManager.DataAccess.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using BobManager.Helpers.Extentions;
 using BobManager.Helpers.Loggers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Logging.Debug;
+using BobManager.Domain.Services.Abstraction;
+using BobManager.Domain.Services.Implementation;
+using BobManager.Domain.Mapping;
+using AutoMapper;
 using BobManager.Helpers.Managers;
 
 namespace BobManager.API
@@ -52,15 +51,23 @@ namespace BobManager.API
 
         public IConfiguration Configuration { get; }
 
+        public static readonly LoggerFactory MyLoggerFactory = new LoggerFactory(new[] { new DebugLoggerProvider() });
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(opt =>
                 opt.UseSqlServer(Configuration["ConnectionString"],
-                b => b.MigrationsAssembly("BobManager.API"))
+                b => b.MigrationsAssembly("BobManager.API")).UseLoggerFactory(MyLoggerFactory).EnableSensitiveDataLogging()
             );
 
             services.AddScoped<DbContext, ApplicationContext>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IWalletService, WalletService>();
+
+            services.AddSingleton<IMapper>(new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MapperProfile());
+            }).CreateMapper());
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>()
@@ -90,7 +97,6 @@ namespace BobManager.API
             services.AddSingleton(errManager);
             services.AddSingleton(clientErrManager);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

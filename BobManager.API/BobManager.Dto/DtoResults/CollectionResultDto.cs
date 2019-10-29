@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BobManager.Dto.DtoResults
 {
     public class CollectionResultDto<T> : ResultDto
     {
-        public List<T> Data { get; set; }
+        public ICollection<T> Data { get; set; }
         public int Count { get; set; }
     }
 }
