@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace BobManager.DataAccess.Repositories
 {
@@ -17,49 +18,51 @@ namespace BobManager.DataAccess.Repositories
             db = _db;
         }
 
-        public void Create(TEntity entity)
+        public async Task Create(TEntity entity)
         {
-            db.Set<TEntity>().Add(entity);
-            db.SaveChanges();
+            await db.Set<TEntity>().AddAsync(entity);
+            await db.SaveChangesAsync();
         }
 
-        public void Delete(TEntity entity)
+        public async Task Delete(TEntity entity)
         {
             db.Set<TEntity>().Remove(entity);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
-        public TEntity Find(int Id)
+        public async Task<TEntity> Find(int Id)
         {
-            return db.Set<TEntity>().Find(Id);
+            return await db.Set<TEntity>().FindAsync(Id);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return db.Set<TEntity>().AsEnumerable();
+            return await db.Set<TEntity>().ToListAsync();
         }
 
-        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> predicate)
         {
-            return db.Set<TEntity>().Where(predicate).AsEnumerable();
+            return await db.Set<TEntity>().Where(predicate).ToListAsync();
         }
 
-        public IEnumerable<TEntity> GetAllInclude(params Expression<Func<TEntity, object>>[] includes)
+        public async Task<IEnumerable<TEntity>> GetAllInclude(params Expression<Func<TEntity, object>>[] includes)
         {
-            var query = db.Set<TEntity>().AsQueryable();
-            return includes.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            return await includes.Aggregate(db.Set<TEntity>().AsQueryable(), 
+                (current, includeProperty) => 
+                    current.Include(includeProperty)).ToListAsync();
         }
 
-        public IEnumerable<TEntity> GetAllInclude(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
+        public async Task<IEnumerable<TEntity>> GetAllInclude(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
         {
-            var query = db.Set<TEntity>().Where(predicate);
-            return includes.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            return await includes.Aggregate(db.Set<TEntity>().Where(predicate),
+                (current, includeProperty) =>
+                    current.Include(includeProperty)).ToListAsync();
         }
 
-        public void Update(TEntity entity)
+        public async Task Update(TEntity entity)
         {
             db.Entry(entity).State = EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
     }
 }

@@ -1,0 +1,19 @@
+﻿using AutoMapper;
+using BobManager.DataAccess.Entities;
+using BobManager.Dto.DtoModels;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BobManager.Domain.Mapping
+{
+    public class MapperProfile : Profile
+    {
+        public MapperProfile()
+        {
+            CreateMap<Spending, SpendingDto>();
+            CreateMap<SpendingCategory, SpendingCategoryDto>();
+            CreateMap<User, UserDto>();
+        }
+    }
+}

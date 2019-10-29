@@ -6,7 +6,7 @@ namespace BobManager.Dto.DtoResults
 {
     public class CollectionResultDto<T> : ResultDto
     {
-        public List<T> Data { get; set; }
+        public ICollection<T> Data { get; set; }
         public int Count { get; set; }
     }
 }

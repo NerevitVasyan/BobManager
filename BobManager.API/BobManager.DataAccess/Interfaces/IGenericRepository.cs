@@ -9,13 +9,13 @@ namespace BobManager.DataAccess.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        void Create(TEntity entity);
-        void Update(TEntity entity);
-        void Delete(TEntity entity);
-        IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate);
-        IEnumerable<TEntity> GetAllInclude(params Expression<Func<TEntity, object>>[] includes);
-        IEnumerable<TEntity> GetAllInclude(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes);
-        TEntity Find(int Id);
+        Task Create(TEntity entity);
+        Task Update(TEntity entity);
+        Task Delete(TEntity entity);
+        Task<IEnumerable<TEntity>> GetAll();
+        Task<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> GetAllInclude(params Expression<Func<TEntity, object>>[] includes);
+        Task<IEnumerable<TEntity>> GetAllInclude(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes);
+        Task<TEntity> Find(int Id);
     }
 }
