@@ -1,6 +1,7 @@
 ﻿using BobManager.DataAccess.Entities;
 using BobManager.Domain.Interfaces;
 using BobManager.Dto.DtoModels;
+using BobManager.Dto.DtoResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace BobManager.Domain.Services
 {
-    class AccountService : IAccountService
+    public class AccountService : IAccountService
     {
         private readonly IConfiguration _configuration;
         private readonly SignInManager<User> _signInManager;
@@ -29,7 +30,7 @@ namespace BobManager.Domain.Services
             _configuration = configuration;
         }
 
-        public async Task<object> Register(RegisterDto entity)
+        public async Task<SingleResultDto<string>> Register(RegisterDto entity)
         {
             var user = new User
             {
@@ -40,20 +41,22 @@ namespace BobManager.Domain.Services
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return await GenerateJwtToken(entity.Email, user);
+                var token = await GenerateJwtToken(entity.Email, user);
+                return new SingleResultDto<string> { Data = token.ToString(), IsSuccessful = true, Message = "" };
             }
-            throw new ApplicationException("INVALID_REGISTER");
+            return new SingleResultDto<string> { Data = "", IsSuccessful = false, Message = "INVALID_REGISTER" };
         }
 
-        public async Task<object> Login(LoginDto entity)
+        public async Task<SingleResultDto<string>> Login(LoginDto entity)
         {
             var result = await _signInManager.PasswordSignInAsync(entity.Email, entity.Password, entity.IsRemember, false);
             if (result.Succeeded)
             {
-                var appUser = _userManager.Users.SingleOrDefault(r => r.Email == entity.Email);
-                return await GenerateJwtToken(entity.Email, appUser);
+                var user = _userManager.Users.SingleOrDefault(r => r.Email == entity.Email);
+                var token = await GenerateJwtToken(entity.Email, user);
+                return new SingleResultDto<string> { Data = token.ToString(), IsSuccessful = true, Message = "" };
             }
-            throw new ApplicationException("INVALID_LOGIN");
+            return new SingleResultDto<string> { Data = "", IsSuccessful = false, Message = "INVALID_LOGIN" };
         }
 
         public Task<object> LogOut()

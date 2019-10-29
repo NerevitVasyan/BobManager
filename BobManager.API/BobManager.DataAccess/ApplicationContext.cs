@@ -7,7 +7,10 @@ namespace BobManager.DataAccess
 {
     public class ApplicationContext : IdentityDbContext<User>
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
         public DbSet<CalendarEvent> CalendarEvents { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupRole> GroupRoles { get; set; }

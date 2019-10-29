@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using BobManager.Domain.Interfaces;
+using BobManager.Domain.Services;
 
 namespace BobManager.API
 {
@@ -52,11 +53,18 @@ namespace BobManager.API
 
             services.AddScoped<DbContext, ApplicationContext>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped(typeof(IAccountService), typeof(AccountService));
+            services.AddScoped<IAccountService, AccountService>();
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<User, IdentityRole>(opts =>
+            {
+                opts.Password.RequiredLength = 4;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+            })
+            .AddEntityFrameworkStores<ApplicationContext>()
+            .AddDefaultTokenProviders();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services
@@ -79,17 +87,6 @@ namespace BobManager.API
                     };
                 });
 
-            services.AddIdentity<User, IdentityRole>(opts =>
-            {
-                opts.Password.RequiredLength = 4;
-                opts.Password.RequireNonAlphanumeric = false; 
-                opts.Password.RequireLowercase = false;
-                opts.Password.RequireUppercase = false;
-                opts.Password.RequireDigit = false;
-            })
-            .AddEntityFrameworkStores<ApplicationContext>()
-            .AddDefaultTokenProviders();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -104,9 +101,9 @@ namespace BobManager.API
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMiddlewareException();
-            app.UseAuthentication();
             app.UseMvc();
         }
     }

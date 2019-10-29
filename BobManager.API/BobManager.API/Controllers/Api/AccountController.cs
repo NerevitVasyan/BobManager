@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using BobManager.Domain.Interfaces;
 using BobManager.Dto.DtoModels;
+using BobManager.Dto.DtoResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BobManager.API.Controllers
@@ -14,11 +15,11 @@ namespace BobManager.API.Controllers
 
         public AccountController(IAccountService accountService)
         {
-            accountService = _accountService;
+            _accountService = accountService;
         }
 
         [HttpPost]
-        public async Task<object> Register([FromBody] RegisterDto model)
+        public async Task<SingleResultDto<string>> Register([FromBody] RegisterDto model)
         {
             try
             {
@@ -31,7 +32,7 @@ namespace BobManager.API.Controllers
         }
 
         [HttpPost]
-        public async Task<object> Login([FromBody] LoginDto model)
+        public async Task<SingleResultDto<string>> Login([FromBody] LoginDto model)
         {
             try
             {
