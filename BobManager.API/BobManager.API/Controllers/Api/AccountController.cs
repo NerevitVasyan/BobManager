@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using BobManager.DataAccess.Entities;
-using Microsoft.AspNetCore.Identity;
+using BobManager.Domain.Interfaces;
+using BobManager.Dto.DtoModels;
+using BobManager.Dto.DtoResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BobManager.API.Controllers
@@ -22,7 +19,7 @@ namespace BobManager.API.Controllers
         }
 
         [HttpPost]
-        public async Task<SingleResultDto<string>> Register([FromBody] RegisterDto model)
+        public async Task<ResultDto> Register([FromBody] RegisterDto model)
         {
             try
             {
@@ -35,7 +32,7 @@ namespace BobManager.API.Controllers
         }
 
         [HttpPost]
-        public async Task<SingleResultDto<string>> Login([FromBody] LoginDto model)
+        public async Task<ResultDto> Login([FromBody] LoginDto model)
         {
             try
             {
