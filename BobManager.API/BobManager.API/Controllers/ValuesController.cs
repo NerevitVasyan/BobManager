@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BobManager.DataAccess;
+using BobManager.DataAccess.Configuration;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BobManager.API.Controllers
@@ -10,11 +12,19 @@ namespace BobManager.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        ApplicationContext AppContext;
+
+        public ValuesController(ApplicationContext AppContext)
+        {
+            this.AppContext = AppContext;
+        }
+
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public object Get()
         {
-            return new string[] { "value1", "value2" };
+            return AppContext.Spendings.ToList();
         }
 
         // GET api/values/5
