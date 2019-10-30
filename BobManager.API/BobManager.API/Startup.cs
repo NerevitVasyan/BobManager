@@ -22,6 +22,8 @@ using BobManager.Domain.Mapping;
 using AutoMapper;
 using BobManager.Helpers.Managers;
 using BobManager.Helpers.Extentions;
+using BobManager.Domain.Interfaces;
+using BobManager.Domain.Services;
 
 namespace BobManager.API
 {
@@ -47,7 +49,8 @@ namespace BobManager.API
             errManager.DebugMode = true;
 
             clientErrManager = new ClientErrorManager();
-            clientErrManager.AddError(203, "SOME");
+            clientErrManager.AddError(1, "Invalid login!");
+            clientErrManager.AddError(2, "Error register!");
         }
 
         public IConfiguration Configuration { get; }
@@ -56,6 +59,7 @@ namespace BobManager.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(errManager);
             services.AddDbContext<ApplicationContext>(opt =>
                 opt.UseSqlServer(Configuration["ConnectionString"],
                 b => b.MigrationsAssembly("BobManager.API")).UseLoggerFactory(MyLoggerFactory).EnableSensitiveDataLogging()
@@ -64,15 +68,23 @@ namespace BobManager.API
             services.AddScoped<DbContext, ApplicationContext>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IWalletService, WalletService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             services.AddSingleton<IMapper>(new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MapperProfile());
             }).CreateMapper());
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<User, IdentityRole>(opts =>
+            {
+                opts.Password.RequiredLength = 4;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+            })
+            .AddEntityFrameworkStores<ApplicationContext>()
+            .AddDefaultTokenProviders();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services
@@ -94,8 +106,7 @@ namespace BobManager.API
                         ClockSkew = TimeSpan.Zero
                     };
                 });
-
-            services.AddSingleton(errManager);
+            
             services.AddSingleton(clientErrManager);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -111,6 +122,7 @@ namespace BobManager.API
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMiddlewareException();
             app.UseMvc();

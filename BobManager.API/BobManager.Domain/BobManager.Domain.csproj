@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BobManager.DataAccess\BobManager.DataAccess.csproj" />
     <ProjectReference Include="..\BobManager.Dto\BobManager.Dto.csproj" />
+    <ProjectReference Include="..\BobManager.Helpers\BobManager.Helpers.csproj" />
   </ItemGroup>
 
 </Project>
