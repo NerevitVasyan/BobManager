@@ -45,7 +45,7 @@ namespace BobManager.Domain.Services
             {
                return  await Login(new LoginDto { Email = entity.Email, IsRemember = false, Password = entity.Password});
             }
-            return _clientErrorManager.MapErrorIDToResultDto(2); ;
+            return _clientErrorManager.MapErrorIDToResultDto(2);
         }
 
         public async Task<ResultDto> Login(LoginDto entity)
