@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BobManager.Helpers.Extentions;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,18 +8,14 @@ namespace BobManager.Helpers.Logger
 {
     public class LoggingFile
     {
-        public string FullPath { get; private set; }
+        private object _lock = new object();
         public List<LogLevel> LogLevels { get; private set; } = new List<LogLevel>();
-        public object _lock { get; private set; } = new object();
+        public string FullPath { get; private set; }
 
         public LoggingFile(string path)
         {
-            if (!SetPath(path))
-            {
-                File.Create(Path.GetFullPath(path));
-                if (!SetPath(path))
-                    throw new ArgumentException("File doesn't exists!", "path");
-            }
+            FileExtentions.CreateWithDirectories(path);
+            FullPath = Path.GetFullPath(path);
         }
 
         public LoggingFile(string path, LogLevel logLevel) : this(path)
@@ -31,15 +28,6 @@ namespace BobManager.Helpers.Logger
         {
             if (!AddLogLevels(logLevels))
                 throw new ArgumentException("This type logging doesn't exists or logLevel already added!", "logLevels");
-        }
-
-        public bool SetPath(string newPath)
-        {
-            string fullPath = Path.GetFullPath(newPath);
-            if (!File.Exists(fullPath))
-                return false;
-            FullPath = fullPath;
-            return true;
         }
 
         public bool AddLogLevel(LogLevel logLevel)
