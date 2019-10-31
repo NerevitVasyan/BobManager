@@ -6,17 +6,23 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
    declarations: [
       AppComponent,
       HomeComponent,
       HeaderComponent,
-      FooterComponent
+      FooterComponent,
+      LoginComponent,
+      RegistrationComponent
    ],
    imports: [
       BrowserModule,
-      HttpClientModule
+      HttpClientModule,
+      AppRoutingModule
    ],
    providers: [],
    bootstrap: [
