@@ -1,5 +1,4 @@
 ﻿using BobManager.DataAccess.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +6,10 @@ namespace BobManager.DataAccess
 {
     public class ApplicationContext : IdentityDbContext<User>
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
         public DbSet<CalendarEvent> CalendarEvents { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupRole> GroupRoles { get; set; }
@@ -36,6 +38,8 @@ namespace BobManager.DataAccess
                 .HasOne(sc => sc.GroupRole)
                 .WithMany(c => c.UsersGroups)
                 .HasForeignKey(sc => sc.GroupRoleId);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

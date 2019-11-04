@@ -14,8 +14,6 @@ namespace BobManager.Helpers.Loggers
         public bool IsIssetFile(string path, out LoggingFile file)
         {
             string fullPath = Path.GetFullPath(path);
-            if (!File.Exists(fullPath))
-                throw new ArgumentException("File doesn't exists!", "path");
             file = Files.FirstOrDefault((x) => x.FullPath == fullPath);
             return file != null;
         }
@@ -30,6 +28,7 @@ namespace BobManager.Helpers.Loggers
         { 
             if (file == null)
                 throw new ArgumentException("File can't be null", "file");
+
             LoggingFile outFile;
             if (!IsIssetFile(file.FullPath, out outFile))
             {
@@ -46,7 +45,6 @@ namespace BobManager.Helpers.Loggers
 
         public bool IsEnabled(LogLevel logLevel)
         {
-            //return logLevel == LogLevel.Trace;
             return true;
         }
 
@@ -57,8 +55,6 @@ namespace BobManager.Helpers.Loggers
                                 Func<TState, Exception, string> formatter
                                 )
         {
-            //if (formatter == null || formatter.Target == null)
-            //    formatter = StringExtensions.ExceptionFormatter;
             string text = formatter(state, exception) + Environment.NewLine;
             foreach (var item in Files)
                 if (item.IsIssetLogLevel(logLevel))
