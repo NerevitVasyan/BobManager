@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #2e86de;
+}
+
 ul {
     margin: 0;
 }
@@ -37,6 +41,23 @@ img {
 
 p {
     margin: 0;
+}
+
+.logo {
+    text-align: center;
+}
+
+.card-img {
+   height: 200px;
+   width: 200px;
+}
+
+.cards-background {
+    background: #F5F5F5;
+}
+
+.container {
+    background-color: #FFFFFF;
 }
 
 .table-responsive {
@@ -159,7 +180,7 @@ strong {
 .title-6 {
     font-size: 24px;
     font-weight: 500;
-    color: #fff;
+    color: #393939;
 }
 
 .heading-title {
@@ -442,7 +463,15 @@ section {
 }
 
 .au-btn--blue {
-    background: #4272d7;
+    background: #2980b9;
+}
+
+.au-btn--dark-blue {
+    background: #2c3e50;
+}
+
+.au-btn--dark:hover {
+    background: rgb(77, 76, 76);
 }
 
 .au-btn--green {
@@ -953,6 +982,15 @@ section {
         margin-right: 0;
         margin-bottom: 10px;
     }
+}
+
+.card-body, .card-footer{
+    background-color: #ecf0f1;
+}
+
+.card-header{
+    background-color: #2c3e50;
+    color: white;
 }
 
 .rs-select2--light .select2-container--default .select2-selection--single {
@@ -14606,4 +14644,8 @@ section {
 
 .vue-lists ul, .vue-lists ol {
     padding-left: 30px;
+}
+
+.bg-blue{
+    background-color: rgb(0, 0, 0);
 }
