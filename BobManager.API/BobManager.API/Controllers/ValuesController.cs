@@ -24,7 +24,7 @@ namespace BobManager.API.Controllers
         [HttpGet]
         public object Get()
         {
-            return AppContext.Spendings.ToList();
+            return AppContext.SpendingCategories.ToList();
         }
 
         // GET api/values/5
