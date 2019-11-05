@@ -17,7 +17,9 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
             {
                 new SpendingCategory { Name = "Food", Color = "Green" },
                 new SpendingCategory { Name = "House", Color = "Blue" },
-                new SpendingCategory { Name = "Alcohol", Color = "Red" }
+                new SpendingCategory { Name = "Alcohol", Color = "Red" },
+                new SpendingCategory { Name = "School", Color = "Orange" },
+                new SpendingCategory { Name = "Dreams", Color = "Green" }
             };
 
             await context.Set<SpendingCategory>().AddRangeAsync(spendingCategories);

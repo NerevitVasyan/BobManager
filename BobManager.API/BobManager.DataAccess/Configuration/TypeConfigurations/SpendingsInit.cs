@@ -37,7 +37,7 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                     Description = "Pay Comunalka",
                     SpendingCategoryId = await context.Set<SpendingCategory>().FirstOrDefaultAsync(x=>x.Name == "House"),
                     User = await context.Set<User>().FirstOrDefaultAsync(x=>x.Email=="vasyan@gmail.com")
-                }
+                },                 
             };
 
             await context.Set<Spending>().AddRangeAsync(spendings);

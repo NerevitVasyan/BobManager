@@ -28,6 +28,12 @@ namespace BobManager.DataAccess.Configuration
 
             this.AddConfig(new SpendingCategoryInit());
             this.AddConfig(new SpendingsInit());
+            this.AddConfig(new GroupInit());
+            this.AddConfig(new GroupRoleInit());
+            this.AddConfig(new ToDoCategoryInit());
+            this.AddConfig(new ToDoInit());
+            this.AddConfig(new CalendarEventInit());
+            this.AddConfig(new UsersGroupInit());
         }
 
         public void AddConfig(ITypeInitializer typeInitializer)
@@ -37,8 +43,8 @@ namespace BobManager.DataAccess.Configuration
 
         public async Task SeedData()
         {
-            bool deleted = await context.Database.EnsureDeletedAsync();
-            bool created = await context.Database.EnsureCreatedAsync();
+            //bool deleted = await context.Database.EnsureDeletedAsync();
+            //bool created = await context.Database.EnsureCreatedAsync();
 
             await InitializeIdetity();
             foreach(var initializer in typeInitializers)
@@ -54,13 +60,20 @@ namespace BobManager.DataAccess.Configuration
 
             await userManager.CreateAsync(new User
             {
-                UserName = "vasyan@gmail.com",Email = "vasyan@gmail.com"
+                UserName = "vasyan@gmail.com",
+                Email = "vasyan@gmail.com"
             }, "Qwe123!!");
 
             await userManager.CreateAsync(new User
             {
                 UserName = "petro@gmail.com",
                 Email = "petro@gmail.com"
+            }, "Qwe123!!");
+
+            await userManager.CreateAsync(new User
+            {
+                UserName = "shliapa@gmail.com",
+                Email = "shliapa@gmail.com",
             }, "Qwe123!!");
 
             await userManager.CreateAsync(new User
