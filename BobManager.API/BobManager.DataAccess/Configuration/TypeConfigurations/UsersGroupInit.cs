@@ -18,7 +18,7 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                 {
                    User = await context.Set<User>().FirstOrDefaultAsync(x=>x.Email=="vasyan@gmail.com"),
                    Group = await context.Set<Group>().FirstOrDefaultAsync(x=> x.Name == "Donner"),
-                   GroupRole = await context.Set<GroupRole>().FirstOrDefaultAsync(x=> x.Name == "lol")
+                   GroupRole = await context.Set<GroupRole>().FirstOrDefaultAsync(x=> x.Name == "Lol")
                 },
                 new UsersGroup
                 {
@@ -30,13 +30,13 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                 {
                    User = await context.Set<User>().FirstOrDefaultAsync(x=>x.Email=="shliapa@gmail.com"),
                    Group = await context.Set<Group>().FirstOrDefaultAsync(x=> x.Name == "Apachi"),
-                   GroupRole = await context.Set<GroupRole>().FirstOrDefaultAsync(x=> x.Name == "lol")
+                   GroupRole = await context.Set<GroupRole>().FirstOrDefaultAsync(x=> x.Name == "Lol")
                 },
                 new UsersGroup
                 {
                    User = await context.Set<User>().FirstOrDefaultAsync(x=>x.Email=="vasyan@gmail.com"),
                    Group = await context.Set<Group>().FirstOrDefaultAsync(x=> x.Name == "Gays"),
-                   GroupRole = await context.Set<GroupRole>().FirstOrDefaultAsync(x=> x.Name == "kek")
+                   GroupRole = await context.Set<GroupRole>().FirstOrDefaultAsync(x=> x.Name == "Kek")
                 },
                 new UsersGroup
                 {

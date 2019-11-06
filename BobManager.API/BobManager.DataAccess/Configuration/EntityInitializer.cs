@@ -33,7 +33,7 @@ namespace BobManager.DataAccess.Configuration
             this.AddConfig(new ToDoCategoryInit());
             this.AddConfig(new ToDoInit());
             this.AddConfig(new CalendarEventInit());
-            this.AddConfig(new UsersGroupInit());
+            //this.AddConfig(new UsersGroupInit());
         }
 
         public void AddConfig(ITypeInitializer typeInitializer)
