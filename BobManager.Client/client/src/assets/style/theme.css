@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #2e86de;
+    background-color: #1F65AC;
 }
 
 ul {
@@ -43,6 +43,18 @@ p {
     margin: 0;
 }
 
+.container{
+  background:#f5f6fa;
+}
+
+.card-title{
+    font-size: 26px;
+}
+
+.card-text{
+    font-size: 17px;
+}
+
 .logo {
     text-align: center;
 }
@@ -50,14 +62,6 @@ p {
 .card-img {
    height: 200px;
    width: 200px;
-}
-
-.cards-background {
-    background: #F5F5F5;
-}
-
-.container {
-    background-color: #FFFFFF;
 }
 
 .table-responsive {
@@ -437,11 +441,13 @@ section {
     -moz-transition: all 0.3s ease;
     transition: all 0.3s ease;
     cursor: pointer;
+    font-size: 24px;
 }
 
 .au-btn:hover {
     color: #fff;
     background: #3868cd;
+    font-size: 20px;
 }
 
 .au-btn--blue2 {
@@ -466,12 +472,16 @@ section {
     background: #2980b9;
 }
 
+.au-btn--blue:hover {
+    background: #1B547A ;
+}
+
 .au-btn--dark-blue {
     background: #2c3e50;
 }
 
-.au-btn--dark:hover {
-    background: rgb(77, 76, 76);
+.au-btn--dark-blue:hover {
+    background: #5F6F7E;
 }
 
 .au-btn--green {
@@ -984,12 +994,13 @@ section {
     }
 }
 
-.card-body, .card-footer{
-    background-color: #ecf0f1;
+.card-body{
+    background-color: #3755A6;
 }
 
-.card-header{
-    background-color: #2c3e50;
+
+.card-header, .card-footer{
+    background-color: #2C3E50;
     color: white;
 }
 
@@ -1149,6 +1160,7 @@ section {
 
 .card {
     margin-bottom: 30px;
+    border: none;
 }
 
 .input-group-addon {

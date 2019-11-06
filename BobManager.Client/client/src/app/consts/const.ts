@@ -1,1 +1,1 @@
-export const baseAPI :string = 'http://loacalhost:00000' 
+export const baseAPI :string = 'http://localhost:00000' 
