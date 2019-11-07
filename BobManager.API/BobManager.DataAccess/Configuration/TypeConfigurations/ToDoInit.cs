@@ -211,6 +211,7 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                    ToDoCategory = await context.Set<ToDoCategory>().FirstOrDefaultAsync(x=> x.Name == "Social")
                 },
             };
+
             await context.Set<ToDo>().AddRangeAsync(toDos);
         }
     }

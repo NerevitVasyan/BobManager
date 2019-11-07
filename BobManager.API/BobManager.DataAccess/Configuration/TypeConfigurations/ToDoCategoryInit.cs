@@ -20,6 +20,7 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                 new ToDoCategory { Name = "Entertaiment", Color = "Green"},
                 new ToDoCategory { Name = "Promises", Color = "Phiolet"}
             };
+
             await context.Set<ToDoCategory>().AddRangeAsync(toDoCategories);
         }
     }

@@ -33,7 +33,7 @@ namespace BobManager.DataAccess.Configuration
             this.AddConfig(new ToDoCategoryInit());
             this.AddConfig(new ToDoInit());
             this.AddConfig(new CalendarEventInit());
-            //this.AddConfig(new UsersGroupInit());
+            this.AddConfig(new UsersGroupInit());
         }
 
         public void AddConfig(ITypeInitializer typeInitializer)
@@ -43,15 +43,15 @@ namespace BobManager.DataAccess.Configuration
 
         public async Task SeedData()
         {
-            //bool deleted = await context.Database.EnsureDeletedAsync();
-            //bool created = await context.Database.EnsureCreatedAsync();
+            bool deleted = await context.Database.EnsureDeletedAsync();
+            bool created = await context.Database.EnsureCreatedAsync();
 
             await InitializeIdetity();
             foreach(var initializer in typeInitializers)
             {
                 await initializer.Init(context);
+                await context.SaveChangesAsync();
             }
-            await context.SaveChangesAsync();
         }
 
         private async Task InitializeIdetity()

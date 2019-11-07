@@ -5,48 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Mock-data\CalendarEvent.sql" />
-    <None Remove="Mock-data\Group.sql" />
-    <None Remove="Mock-data\GroupRole.sql" />
-    <None Remove="Mock-data\Spending.sql" />
-    <None Remove="Mock-data\SpendingCategory.sql" />
-    <None Remove="Mock-data\ToDo.sql" />
-    <None Remove="Mock-data\ToDoCategory.sql" />
-    <None Remove="Mock-data\User.sql" />
-    <None Remove="Mock-data\UserGroup.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Mock-data\CalendarEvent.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Mock-data\Group.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Mock-data\GroupRole.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Mock-data\Spending.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Mock-data\SpendingCategory.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Mock-data\ToDo.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Mock-data\ToDoCategory.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Mock-data\User.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Mock-data\UserGroup.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Repositories\" />
   </ItemGroup>
 

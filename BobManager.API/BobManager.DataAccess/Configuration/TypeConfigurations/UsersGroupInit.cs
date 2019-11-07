@@ -45,8 +45,8 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                    GroupRole = await context.Set<GroupRole>().FirstOrDefaultAsync(x=> x.Name == "Garold")
                 },
             };
-            await context.Set<UsersGroup>().AddRangeAsync(usersGroupInits);
 
+            await context.Set<UsersGroup>().AddRangeAsync(usersGroupInits);
         }
     }
 }

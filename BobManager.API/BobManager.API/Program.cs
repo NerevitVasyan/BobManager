@@ -28,11 +28,8 @@ namespace BobManager.API
                 }
                 catch (Exception ex)
                 {
-                    //var logger = scope.ServiceProvider.GetRequiredService<ILogger>();
-                    //logger.LogError(ex, "An error occurred while seeding database.");
-                    throw;
+                    throw ex;
                 }
-
             }
             return webHost;
         }

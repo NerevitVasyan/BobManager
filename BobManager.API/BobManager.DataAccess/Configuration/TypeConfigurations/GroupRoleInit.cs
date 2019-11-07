@@ -21,6 +21,7 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                 new GroupRole { Name = "Mona Liza" }
 
             };
+
             await context.Set<GroupRole>().AddRangeAsync(groupRoles);
         }
     }

@@ -18,9 +18,9 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                 new Group { Name = "Mackdack"},
                 new Group { Name = "Apachi"},
                 new Group { Name = "Gays"},
-                new Group { Name = "Unforms"},
-
+                new Group { Name = "Unforms"}
             };
+
             await context.Set<Group>().AddRangeAsync(groups);
         }
     }

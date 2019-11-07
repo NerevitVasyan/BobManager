@@ -60,6 +60,7 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                     Group = await context.Set<Group>().FirstOrDefaultAsync(x => x.Name == "Mackdack")
                 }
             };
+
             await context.Set<CalendarEvent>().AddRangeAsync(calendarEvents);
         }
     }
