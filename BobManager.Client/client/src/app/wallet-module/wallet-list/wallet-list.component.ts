@@ -12,6 +12,8 @@ export class WalletListComponent implements OnInit {
   constructor(private walletService: WalletService) { }
 
   ngOnInit() {
+    console.log("asd");
+    
     this.walletService.getWallet().subscribe(res => {
       this.wallets = res.data;
     });

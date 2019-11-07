@@ -19,8 +19,13 @@
     "@angular/platform-browser": "~8.2.5",
     "@angular/platform-browser-dynamic": "~8.2.5",
     "@angular/router": "~8.2.5",
+    "@fortawesome/angular-fontawesome": "^0.5.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "bootstrap": "^4.3.1",
     "color-convert": "^2.0.1",
+    "font-awesome": "^4.7.0",
+    "ngx-bootstrap": "^5.2.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

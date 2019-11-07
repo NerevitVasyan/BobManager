@@ -113,7 +113,8 @@ namespace BobManager.API
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader());
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

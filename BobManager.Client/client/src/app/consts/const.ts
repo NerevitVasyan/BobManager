@@ -1,1 +1,9 @@
-export const baseAPI :string = 'http://loacalhost:00000' 
+export const baseAPI: string = 'https://localhost:44339/api/'
+
+export const ApiRoutes = {
+    wallet: "wallet",
+    addWallet:"wallet/AddSpending",
+    getWalletCategory:"wallet/GetCategory",
+    getWalletCount:"wallet/GetSpendigsCount",
+    getWalletForPage:"wallet/GetSpending"
+}

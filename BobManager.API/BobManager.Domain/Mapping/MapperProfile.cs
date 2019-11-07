@@ -8,9 +8,10 @@ namespace BobManager.Domain.Mapping
     {
         public MapperProfile()
         {
-            CreateMap<Spending, SpendingDto>();
-            CreateMap<SpendingCategory, SpendingCategoryDto>();
+            CreateMap<SpendingDto, Spending>().ReverseMap();
+            CreateMap<SpendingCategoryDto, SpendingCategory>().ReverseMap();
             CreateMap<User, UserDto>();
+            //CreateMap<SpendingDto, Spending>();
         }
     }
 }
