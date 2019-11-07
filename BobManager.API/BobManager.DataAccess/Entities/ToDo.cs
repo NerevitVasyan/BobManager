@@ -19,7 +19,7 @@ namespace BobManager.DataAccess.Entities
         public string UserId { get; set; }
         public User User { get; set; }
         [ForeignKey("ToDoCategory")]
-        public int CategoryId { get; set; }
+        public int ToDoCategoryId { get; set; }
         public ToDoCategory ToDoCategory { get; set; }
     }
 }

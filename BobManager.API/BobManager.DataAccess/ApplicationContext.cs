@@ -1,6 +1,5 @@
 ﻿using BobManager.DataAccess.Configuration;
 using BobManager.DataAccess.Entities;
-using BobManager.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

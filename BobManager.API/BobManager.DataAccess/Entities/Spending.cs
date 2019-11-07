@@ -15,6 +15,8 @@ namespace BobManager.DataAccess.Entities
         [ForeignKey("User")]
         public string UserId { get; set; }
         public User User { get; set; }
-        public SpendingCategory SpendingCategoryId { get; set; }
+        [ForeignKey("SpendingCategory")]
+        public int SpendingCategoryId { get; set; }
+        public SpendingCategory SpendingCategory { get; set; }
     }
 }

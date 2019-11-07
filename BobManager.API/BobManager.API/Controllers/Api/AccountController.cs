@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using BobManager.DataAccess.Entities;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+using BobManager.Domain.Interfaces;
+using BobManager.Dto.DtoModels;
+using BobManager.Dto.DtoResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 
 namespace BobManager.API.Controllers
 {
@@ -18,42 +11,37 @@ namespace BobManager.API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
-        private readonly IConfiguration _configuration;
+        private readonly IAccountService _accountService;
 
-        public AccountController(UserManager<User> userManager,
-                                 SignInManager<User> signInManager,
-                                 IConfiguration configuration)
+        public AccountController(IAccountService accountService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _configuration = configuration;
+            _accountService = accountService;
         }
 
-        private async Task<object> GenerateJwtToken(string email, User user)
+        [HttpPost]
+        public async Task<ResultDto> Register([FromBody] RegisterDto model)
         {
-            var claims = new List<Claim>
+            try
             {
-                new Claim(JwtRegisteredClaimNames.Sub, email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["JwtExpireDays"]));
-
-            var token = new JwtSecurityToken(
-                _configuration["JwtIssuer"],
-                _configuration["JwtIssuer"],
-                claims,
-                expires: expires,
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+                return await _accountService.Register(model);
+            }
+            catch(Exception exception)
+            {
+                throw exception;
+            }
         }
 
+        [HttpPost]
+        public async Task<ResultDto> Login([FromBody] LoginDto model)
+        {
+            try
+            {
+                return await _accountService.Login(model);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
     }
 }
