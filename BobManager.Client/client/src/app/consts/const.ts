@@ -1,0 +1,1 @@
+export const baseAPI :string = 'http://loacalhost:00000' 
