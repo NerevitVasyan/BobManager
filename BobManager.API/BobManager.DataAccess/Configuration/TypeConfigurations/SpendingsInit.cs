@@ -19,7 +19,7 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                     Value = 15,
                     Date = DateTime.Now,
                     Description = "Buy some Coffee",
-                    SpendingCategoryId = await context.Set<SpendingCategory>().FirstOrDefaultAsync(x=>x.Name == "Food"),
+                    SpendingCategory = await context.Set<SpendingCategory>().FirstOrDefaultAsync(x=>x.Name == "Food"),
                     User = await context.Set<User>().FirstOrDefaultAsync(x=>x.Email=="vasyan@gmail.com")
                 },
                 new Spending
@@ -27,7 +27,7 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                     Value = 50,
                     Date = DateTime.Now,
                     Description = "Buy some Shawarma",
-                    SpendingCategoryId = await context.Set<SpendingCategory>().FirstOrDefaultAsync(x=>x.Name == "Food"),
+                    SpendingCategory = await context.Set<SpendingCategory>().FirstOrDefaultAsync(x=>x.Name == "Food"),
                     User = await context.Set<User>().FirstOrDefaultAsync(x=>x.Email=="vasyan@gmail.com")
                 },
                 new Spending
@@ -35,7 +35,7 @@ namespace BobManager.DataAccess.Configuration.TypeConfigurations
                     Value = 15,
                     Date = DateTime.Now,
                     Description = "Pay Comunalka",
-                    SpendingCategoryId = await context.Set<SpendingCategory>().FirstOrDefaultAsync(x=>x.Name == "House"),
+                    SpendingCategory = await context.Set<SpendingCategory>().FirstOrDefaultAsync(x=>x.Name == "House"),
                     User = await context.Set<User>().FirstOrDefaultAsync(x=>x.Email=="vasyan@gmail.com")
                 },                 
             };
