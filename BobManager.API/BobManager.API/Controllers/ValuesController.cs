@@ -18,7 +18,7 @@ namespace BobManager.API.Controllers
         [HttpGet]
         public ActionResult<ResultDto> Get()
         {
-            return null;
+            return new ResultDto { IsSuccessful = true, Message = "test" };
         }
 
         // GET api/values/5
