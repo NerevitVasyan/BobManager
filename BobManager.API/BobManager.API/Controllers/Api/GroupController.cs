@@ -32,6 +32,15 @@ namespace BobManager.API.Controllers.Api
         }
 
         [HttpPost]
+        public async Task<ResultDto> Get([FromBody]GetGroupsDto entity)
+        {
+            if (!signInManager.Context.User.Identity.IsAuthenticated)
+                return clientErrorManager.MapErrorIDToResultDto(3);
+
+            return await groupService.Get(entity, await signInManager.UserManager.GetUserAsync(signInManager.Context.User));
+        }
+
+        [HttpPost]
         public async Task<ResultDto> Add([FromBody] AddGroupDto entity)
         {
             if (!signInManager.Context.User.Identity.IsAuthenticated)
@@ -47,6 +56,26 @@ namespace BobManager.API.Controllers.Api
                 return clientErrorManager.MapErrorIDToResultDto(3);
 
             return await groupService.RemoveGroup(ID, await signInManager.UserManager.GetUserAsync(signInManager.Context.User));
+        }
+
+        [HttpPost]
+        [ActionName("users/add")]
+        public async Task<ResultDto> AddUsers([FromBody] AddUsersToGroupDto entity)
+        {
+            if (!signInManager.Context.User.Identity.IsAuthenticated)
+                return clientErrorManager.MapErrorIDToResultDto(3);
+
+            return await groupService.AddUsers(entity, await signInManager.UserManager.GetUserAsync(signInManager.Context.User));
+        }
+
+        [HttpPost]
+        [ActionName("users/remove")]
+        public async Task<ResultDto> RemoveUsers([FromBody] RemoveUsersFromGroupDto entity)
+        {
+            if (!signInManager.Context.User.Identity.IsAuthenticated)
+                return clientErrorManager.MapErrorIDToResultDto(3);
+
+            return await groupService.RemoveUsers(entity, await signInManager.UserManager.GetUserAsync(signInManager.Context.User));
         }
 
         [HttpPost]

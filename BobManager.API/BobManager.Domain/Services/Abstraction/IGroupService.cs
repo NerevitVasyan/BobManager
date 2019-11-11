@@ -13,5 +13,8 @@ namespace BobManager.Domain.Services.Abstraction
         Task<ResultDto> AddGroup(AddGroupDto entity, User curUser);
         Task<ResultDto> RemoveGroup(int ID, User curUser);
         Task<ResultDto> ExitFromGroup(int ID, User curUser);
+        Task<ResultDto> AddUsers(AddUsersToGroupDto entity, User curUser);
+        Task<ResultDto> RemoveUsers(RemoveUsersFromGroupDto entity, User curUser);
+        Task<ResultDto> Get(GetGroupsDto entity, User curUser);
     }
 }

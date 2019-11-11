@@ -53,6 +53,10 @@ namespace BobManager.Domain.Services.Implementation
             return grps[0];
         }
 
+        private async Task<List<Group>> GetGroups(string ID) {
+            return new List<Group>(await grpRep.GetAllInclude((x) => x.Users.FirstOrDefault((m) => m.UserId == ID) != null, (s) => s.Users));
+        }
+
         public async Task<ResultDto> AddGroup(AddGroupDto entity, User curUser)
         {
             if ((entity.Name ?? "").Length < 1) return clientErrorManager.MapErrorIDToResultDto(4);
@@ -212,6 +216,28 @@ namespace BobManager.Domain.Services.Implementation
             await grpRep.Delete(grp);
 
             return new ResultDto { IsSuccessful = true, Message = "Succesful group removed!" };
+        }
+
+        public async Task<ResultDto> Get(GetGroupsDto entity, User curUser) {
+            List<GroupDto> groups = new List<GroupDto>();
+
+            List<Group> grps = await GetGroups(curUser.Id);
+
+            Dictionary<UserDto, int> temp = new Dictionary<UserDto, int>();
+            foreach (var item in grps) {
+                temp.Clear();
+
+                foreach (var s in item.Users)
+                    temp.Add(mapper.Map<User, UserDto>(await userManager.FindByIdAsync(s.UserId)), s.GroupRoleId);
+
+                groups.Add(new GroupDto { Id = item.Id, Name = item.Name, Users = temp });
+            }
+
+            return new SingleResultDto<IEnumerable<GroupDto>> {
+                IsSuccessful = true,
+                Message = "Succesful get groups!",
+                Data = groups
+            };
         }
     }
 }
