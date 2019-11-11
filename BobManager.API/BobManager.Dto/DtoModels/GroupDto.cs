@@ -9,6 +9,6 @@ namespace BobManager.Dto.DtoModels
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public IDictionary<UserDto, int> Users { get; set; } // user, role
+        public IDictionary<string, int> Users { get; set; } // user, role
     }
 }

@@ -223,14 +223,30 @@ namespace BobManager.Domain.Services.Implementation
 
             List<Group> grps = await GetGroups(curUser.Id);
 
-            Dictionary<UserDto, int> temp = new Dictionary<UserDto, int>();
+            Dictionary<string, int> temp = new Dictionary<string, int>();
             foreach (var item in grps) {
                 temp.Clear();
 
                 foreach (var s in item.Users)
-                    temp.Add(mapper.Map<User, UserDto>(await userManager.FindByIdAsync(s.UserId)), s.GroupRoleId);
+                    temp.Add(s.UserId, s.GroupRoleId);
 
                 groups.Add(new GroupDto { Id = item.Id, Name = item.Name, Users = temp });
+            }
+
+            if (entity != null)
+            {
+                if (entity.Offset != null)
+                {
+                    if (entity.Offset > -1 && entity.Offset <= groups.Count)
+                        groups = groups.Skip(entity.Offset.Value).ToList();
+                    else return clientErrorManager.MapErrorIDToResultDto(20);
+                }
+
+                if (entity.Count != null) {
+                    if (entity.Count > -1 && entity.Count <= groups.Count)
+                        groups = groups.Take(entity.Count.Value).ToList();
+                    else return clientErrorManager.MapErrorIDToResultDto(19);
+                }   
             }
 
             return new SingleResultDto<IEnumerable<GroupDto>> {

@@ -15,14 +15,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace BobManager.API.Controllers.Api
 {
     [Route("api/[controller]/[action]")]
-    [ApiController]
     public class GroupController : ControllerBase
     {
         private readonly IGroupService groupService;
         private readonly SignInManager<User> signInManager;
         private readonly ClientErrorManager clientErrorManager;
 
-        public GroupController(IGroupService groupService, 
+        public GroupController(IGroupService groupService,
                                 SignInManager<User> signInManager,
                                 ClientErrorManager clientErrorManager)
         {
@@ -32,59 +31,76 @@ namespace BobManager.API.Controllers.Api
         }
 
         [HttpPost]
-        public async Task<ResultDto> Get([FromBody]GetGroupsDto entity)
+        [ActionName("")]
+        public async Task<ResultDto> Get([FromBody]GetGroupsDto entity = null)
         {
-            if (!signInManager.Context.User.Identity.IsAuthenticated)
+            User curUser = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+            if (curUser == null)
                 return clientErrorManager.MapErrorIDToResultDto(3);
 
-            return await groupService.Get(entity, await signInManager.UserManager.GetUserAsync(signInManager.Context.User));
+            return await groupService.Get(entity, curUser);
         }
 
         [HttpPost]
         public async Task<ResultDto> Add([FromBody] AddGroupDto entity)
         {
-            if (!signInManager.Context.User.Identity.IsAuthenticated)
+            if (entity == null)
+                return clientErrorManager.MapErrorIDToResultDto(18);
+
+            User curUser = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+            if (curUser == null)
                 return clientErrorManager.MapErrorIDToResultDto(3);
 
-            return await groupService.AddGroup(entity, await signInManager.UserManager.GetUserAsync(signInManager.Context.User));
+            return await groupService.AddGroup(entity, curUser);
         }
 
-        [HttpPost]
-        public async Task<ResultDto> Remove([FromBody] int ID)
+        [HttpGet("{ID}")]
+        public async Task<ResultDto> Remove(int ID)
         {
-            if (!signInManager.Context.User.Identity.IsAuthenticated)
+
+            User curUser = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+            if (curUser == null)
                 return clientErrorManager.MapErrorIDToResultDto(3);
 
-            return await groupService.RemoveGroup(ID, await signInManager.UserManager.GetUserAsync(signInManager.Context.User));
+            return await groupService.RemoveGroup(ID, curUser);
         }
 
         [HttpPost]
         [ActionName("users/add")]
         public async Task<ResultDto> AddUsers([FromBody] AddUsersToGroupDto entity)
         {
-            if (!signInManager.Context.User.Identity.IsAuthenticated)
+            if (entity == null)
+                return clientErrorManager.MapErrorIDToResultDto(18);
+
+            User curUser = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+            if (curUser == null)
                 return clientErrorManager.MapErrorIDToResultDto(3);
 
-            return await groupService.AddUsers(entity, await signInManager.UserManager.GetUserAsync(signInManager.Context.User));
+            return await groupService.AddUsers(entity, curUser);
         }
 
         [HttpPost]
         [ActionName("users/remove")]
         public async Task<ResultDto> RemoveUsers([FromBody] RemoveUsersFromGroupDto entity)
         {
-            if (!signInManager.Context.User.Identity.IsAuthenticated)
+            if (entity == null)
+                return clientErrorManager.MapErrorIDToResultDto(18);
+
+            User curUser = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+            if (curUser == null)
                 return clientErrorManager.MapErrorIDToResultDto(3);
 
-            return await groupService.RemoveUsers(entity, await signInManager.UserManager.GetUserAsync(signInManager.Context.User));
+            return await groupService.RemoveUsers(entity, curUser);
         }
 
-        [HttpPost]
-        public async Task<ResultDto> Exit([FromBody] int ID)
+        [HttpGet("{ID}")]
+        public async Task<ResultDto> Exit(int ID)
         {
-            if (!signInManager.Context.User.Identity.IsAuthenticated)
+            User curUser = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
+            if (curUser == null)
                 return clientErrorManager.MapErrorIDToResultDto(3);
 
-            return await groupService.ExitFromGroup(ID, await signInManager.UserManager.GetUserAsync(signInManager.Context.User));
+            return await groupService.ExitFromGroup(ID, curUser);
         }
 
     }

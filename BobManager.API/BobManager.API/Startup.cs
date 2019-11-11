@@ -67,6 +67,9 @@ namespace BobManager.API
             clientErrManager.AddError(15, "None users!");
             clientErrManager.AddError(16, "You can't remove users!");
             clientErrManager.AddError(17, "Incorrect user!");
+            clientErrManager.AddError(18, "No data!");
+            clientErrManager.AddError(19, "Incorrect count!");
+            clientErrManager.AddError(20, "Incorrect offset!");
         }
 
         public IConfiguration Configuration { get; }
