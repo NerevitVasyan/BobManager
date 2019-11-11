@@ -11,6 +11,7 @@ namespace BobManager.Domain.Mapping
             CreateMap<Spending, SpendingDto>();
             CreateMap<SpendingCategory, SpendingCategoryDto>();
             CreateMap<User, UserDto>();
+            CreateMap<UsersGroup, UsersGroupDto>();
             CreateMap<Group, GroupDto>();
         }
     }

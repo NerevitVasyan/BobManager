@@ -1,4 +1,5 @@
-﻿using BobManager.Dto.DtoModels;
+﻿using BobManager.DataAccess.Entities;
+using BobManager.Dto.DtoModels;
 using BobManager.Dto.DtoResults;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,8 @@ namespace BobManager.Domain.Services.Abstraction
 {
     public interface IGroupService
     {
-        Task<ResultDto> AddGroup(GroupDto entity);
-        Task<ResultDto> RemoveGroup(int ID);
+        Task<ResultDto> AddGroup(AddGroupDto entity, User curUser);
+        Task<ResultDto> RemoveGroup(int ID, User curUser);
+        Task<ResultDto> ExitFromGroup(int ID, User curUser);
     }
 }

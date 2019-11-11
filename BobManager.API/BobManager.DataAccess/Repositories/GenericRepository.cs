@@ -1,5 +1,6 @@
 ﻿using BobManager.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +19,36 @@ namespace BobManager.DataAccess.Repositories
             db = _db;
         }
 
-        public async Task Create(TEntity entity)
+        public async Task<TEntity> Create(TEntity entity)
         {
-            await db.Set<TEntity>().AddAsync(entity);
+            var entry = await db.Set<TEntity>().AddAsync(entity);
             await db.SaveChangesAsync();
+            return entry.Entity;
+        }
+
+        public async Task<IEnumerable<TEntity>> Create(IEnumerable<TEntity> entities)
+        {
+            List<TEntity> added = new List<TEntity>();
+            EntityEntry<TEntity> entry;
+
+            foreach (var item in entities) {
+                entry = await db.Set<TEntity>().AddAsync(item);
+                added.Add(entry.Entity);
+            }
+            await db.SaveChangesAsync();
+
+            return added;
         }
 
         public async Task Delete(TEntity entity)
         {
             db.Set<TEntity>().Remove(entity);
+            await db.SaveChangesAsync();
+        }
+
+        public async Task Delete(IEnumerable<TEntity> entity)
+        {
+            db.Set<TEntity>().RemoveRange(entity);
             await db.SaveChangesAsync();
         }
 

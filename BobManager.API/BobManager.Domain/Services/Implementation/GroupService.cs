@@ -10,56 +10,208 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace BobManager.Domain.Services.Implementation
 {
     public class GroupService : IGroupService
     {
-        private readonly SignInManager<User> signInManager;
         private readonly ClientErrorManager clientErrorManager;
-        private readonly IGenericRepository<Group> grpRep;
-        private readonly IGenericRepository<UsersGroup> usrsGroupRep;
-        private readonly IGenericRepository<GroupRole> rolesRep;
-        private readonly IMapper mapper;
 
-        public GroupService(SignInManager<User> signInManager,
-                            ClientErrorManager clientErrorManager,
+        private readonly UserManager<User> userManager;
+
+        private readonly IGenericRepository<Group> grpRep;
+        private readonly IGenericRepository<GroupRole> rolesRep;
+        private readonly IGenericRepository<UsersGroup> userGrpRep;
+        private readonly IMapper mapper;
+        
+        public GroupService(ClientErrorManager clientErrorManager,
+                            UserManager<User> userManager,
                             IGenericRepository<Group> grpRep,
-                            IGenericRepository<UsersGroup> usrsGroupRep ,
                             IGenericRepository<GroupRole> rolesRep,
+                            IGenericRepository<UsersGroup> userGrpRep,
                             IMapper mapper)
         {
-            this.signInManager = signInManager;
             this.clientErrorManager = clientErrorManager;
+            this.userManager = userManager;
             this.grpRep = grpRep;
-            this.usrsGroupRep = usrsGroupRep;
-            this.mapper = mapper;
+            this.userGrpRep = userGrpRep;
             this.rolesRep = rolesRep;
+            this.mapper = mapper;
         }
 
-        public async Task<ResultDto> AddGroup(GroupDto entity)
-        {
-            if (!signInManager.IsSignedIn(signInManager.Context.User)) return clientErrorManager.MapErrorIDToResultDto(3);
-            else if ((entity.Name ?? "").Length < 1) return clientErrorManager.MapErrorIDToResultDto(4);
+        private async Task<GroupRole> GetFirstRoleAsync() {
+            return new List<GroupRole>(await rolesRep.GetAll())[0];
+        }
 
-            User curUser = await signInManager.UserManager.GetUserAsync(signInManager.Context.User);
-            IEnumerable<GroupRole> roles = await rolesRep.GetAll();
-            GroupRole aRole = roles.GetEnumerator().Current;
-            
-            await usrsGroupRep.Create(
-                new UsersGroup
+        private async Task<Group> IsIssetUserInGroupAsync(int ID, string userID) {
+            List<Group> grps = new List<Group>(await grpRep.GetAllInclude((x) => x.Id == ID, (s) => s.Users));
+
+            if (grps.Count < 1 || grps[0].Users.FirstOrDefault((x) => x.UserId == userID) == null) 
+                return null;
+
+            return grps[0];
+        }
+
+        public async Task<ResultDto> AddGroup(AddGroupDto entity, User curUser)
+        {
+            if ((entity.Name ?? "").Length < 1) return clientErrorManager.MapErrorIDToResultDto(4);
+            else if (entity.Name.Length > 50) return clientErrorManager.MapErrorIDToResultDto(5);
+
+            List<UsersGroup> addUsers = new List<UsersGroup>();
+
+            User temp;
+            List<GroupRole> roles = new List<GroupRole>(await rolesRep.GetAll());
+
+            if (entity.Users != null) {
+                foreach (var item in entity.Users)
                 {
-                    Group = mapper.Map<GroupDto, Group>(entity),
-                    User = curUser,
-                    GroupRole = aRole
-                });
+                    if (item.Key == null)
+                        clientErrorManager.MapErrorIDToResultDto(6, item);
 
-            return new ResultDto();
+                    temp = await userManager.FindByIdAsync(item.Key);
+
+                    if (temp == null)
+                        return clientErrorManager.MapErrorIDToResultDto(7, item);
+                    else if (temp.Id == curUser.Id)
+                        return clientErrorManager.MapErrorIDToResultDto(8, item);
+
+                    if (roles.FirstOrDefault((x) => x.Id == item.Value) == null)
+                        return clientErrorManager.MapErrorIDToResultDto(9, item);
+                    else if (item.Value < roles[0].Id)
+                        return clientErrorManager.MapErrorIDToResultDto(10, item);
+
+                    addUsers.Add(new UsersGroup { UserId = temp.Id, GroupRoleId = item.Value });
+                }
+            }
+
+            addUsers.Add(new UsersGroup { UserId = curUser.Id, GroupRoleId = roles[0].Id });
+
+            return new SingleResultDto<GroupDto>{
+                IsSuccessful = true,
+                Message = "Successful add group!",
+                Data = mapper.Map<Group, GroupDto>(
+                    await grpRep.Create(new Group {
+                                        Name = entity.Name,
+                                        Users = addUsers
+                    }))
+            };
         }
 
-        public Task<ResultDto> RemoveGroup(int ID)
+        public async Task<ResultDto> ExitFromGroup(int ID, User curUser) {
+            Group grp = await IsIssetUserInGroupAsync(ID, curUser.Id);
+
+            if (grp == null)
+                return clientErrorManager.MapErrorIDToResultDto(11);
+
+            GroupRole aRole = await GetFirstRoleAsync();
+            UsersGroup usrGrp = grp.Users.FirstOrDefault((x) => x.UserId == curUser.Id);
+
+            if (usrGrp.GroupRoleId == aRole.Id)
+                return clientErrorManager.MapErrorIDToResultDto(13);
+
+            await userGrpRep.Delete(usrGrp);
+
+            return new ResultDto { IsSuccessful = true, Message = "Succesful exited from group!" };
+        }
+
+        public async Task<ResultDto> AddUsers(AddUsersToGroupDto entity, User curUser) {
+            Group grp = await IsIssetUserInGroupAsync(entity.ID, curUser.Id);
+
+            if (grp == null)
+                return clientErrorManager.MapErrorIDToResultDto(11);
+
+            if (entity.Users == null || entity.Users.Count == 0)
+                return clientErrorManager.MapErrorIDToResultDto(15);
+
+            List<UsersGroup> addUsers = new List<UsersGroup>();
+
+            User temp;
+            List<GroupRole> roles = new List<GroupRole>( await rolesRep.GetAll());
+
+            foreach (var item in entity.Users)
+            {
+                if (item.Key == null)
+                    clientErrorManager.MapErrorIDToResultDto(6, item);
+
+                temp = await userManager.FindByIdAsync(item.Key);
+
+                if (temp == null)
+                    return clientErrorManager.MapErrorIDToResultDto(7, item);
+                else if (temp.Id == curUser.Id)
+                    return clientErrorManager.MapErrorIDToResultDto(8, item);
+                else if (grp.Users.FirstOrDefault((x) => x.UserId == temp.Id) != null)
+                    return clientErrorManager.MapErrorIDToResultDto(14, item);
+
+                if (roles.FirstOrDefault((x) => x.Id == item.Value) == null)
+                    return clientErrorManager.MapErrorIDToResultDto(9, item);
+                else if (item.Value < roles[0].Id)
+                    return clientErrorManager.MapErrorIDToResultDto(10, item);
+
+                addUsers.Add(new UsersGroup { GroupId = entity.ID, UserId = temp.Id, GroupRoleId = item.Value });
+            }
+
+            return new SingleResultDto<IEnumerable<UsersGroupDto>>
+            {
+                IsSuccessful = true,
+                Data = mapper.Map<IEnumerable<UsersGroup>, IEnumerable<UsersGroupDto>>(await userGrpRep.Create(addUsers)),
+                Message = "Succesful added users!"
+            };
+        }
+
+        public async Task<ResultDto> RemoveUsers(RemoveUsersFromGroupDto entity, User curUser)
         {
-            throw new NotImplementedException();
+            Group grp = await IsIssetUserInGroupAsync(entity.ID, curUser.Id);
+
+            if (grp == null)
+                return clientErrorManager.MapErrorIDToResultDto(11);
+
+            List<GroupRole> roles = new List<GroupRole>(await rolesRep.GetAll());
+
+            if (grp.Users.FirstOrDefault((x) => x.UserId == curUser.Id && x.GroupRoleId == roles[0].Id) == null)
+                clientErrorManager.MapErrorIDToResultDto(16);
+
+            if (entity.Users == null || entity.Users.Count == 0)
+                return clientErrorManager.MapErrorIDToResultDto(15);
+
+            List<UsersGroup> removeUsers = new List<UsersGroup>();
+            UsersGroup tempUserGrp;
+
+            foreach (var item in entity.Users)
+            {
+                tempUserGrp = grp.Users.FirstOrDefault((x) => x.UserId == item);
+
+                if (tempUserGrp == null)
+                    return clientErrorManager.MapErrorIDToResultDto(17, item);
+                else if (tempUserGrp.GroupRoleId == roles[0].Id || tempUserGrp.UserId == item)
+                    return clientErrorManager.MapErrorIDToResultDto(13, item);
+
+                removeUsers.Add(tempUserGrp);
+            }
+
+            await userGrpRep.Delete(removeUsers);
+
+            return new ResultDto
+            {
+                IsSuccessful = true,
+                Message = "Succesful removed users!"
+            };
+        }
+
+        public async Task<ResultDto> RemoveGroup(int ID, User curUser)
+        {
+            GroupRole aRole = await GetFirstRoleAsync();
+            Group grp = await IsIssetUserInGroupAsync(ID, curUser.Id);
+
+            if (grp == null)
+                return clientErrorManager.MapErrorIDToResultDto(11);
+
+            if (grp.Users.FirstOrDefault((x) => x.UserId == curUser.Id && x.GroupRoleId == aRole.Id) == null)
+                return clientErrorManager.MapErrorIDToResultDto(12);
+
+            await grpRep.Delete(grp);
+
+            return new ResultDto { IsSuccessful = true, Message = "Succesful group removed!" };
         }
     }
 }
