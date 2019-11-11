@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using BobManager.DataAccess;
+using BobManager.DataAccess.Configuration;
 using BobManager.DataAccess.Entities;
 using BobManager.DataAccess.Interfaces;
 using BobManager.DataAccess.Repositories;
@@ -102,6 +103,8 @@ namespace BobManager.API
             })
             .AddEntityFrameworkStores<ApplicationContext>()
             .AddDefaultTokenProviders();
+
+            services.AddScoped<IEntityInitializer, EntityInitializer>();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services
