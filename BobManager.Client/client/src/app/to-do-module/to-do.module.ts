@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { ToDoItemComponent } from './to-do-item/to-do-item.component';
+import { TodoService } from '../services/todo.service';
 
 @NgModule({
   imports: [
@@ -12,7 +13,7 @@ import { ToDoItemComponent } from './to-do-item/to-do-item.component';
     HttpClientModule
   ],
   declarations: [ToDoListComponent, ToDoItemComponent],
-  providers: [],
+  providers: [TodoService],
   exports: [ToDoListComponent]
 })
 export class ToDoModule { }
