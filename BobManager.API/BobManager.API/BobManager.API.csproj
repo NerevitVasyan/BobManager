@@ -1,22 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Api\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BobManager.DataAccess\BobManager.DataAccess.csproj" />
     <ProjectReference Include="..\BobManager.Domain\BobManager.Domain.csproj" />
     <ProjectReference Include="..\BobManager.Dto\BobManager.Dto.csproj" />
+    <ProjectReference Include="..\BobManager.Helpers\BobManager.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

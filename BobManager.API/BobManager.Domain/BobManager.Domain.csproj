@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -6,13 +6,16 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
-    <Folder Include="Mapping\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BobManager.DataAccess\BobManager.DataAccess.csproj" />
     <ProjectReference Include="..\BobManager.Dto\BobManager.Dto.csproj" />
+    <ProjectReference Include="..\BobManager.Helpers\BobManager.Helpers.csproj" />
   </ItemGroup>
 
 </Project>
