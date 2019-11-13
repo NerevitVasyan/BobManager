@@ -40,7 +40,7 @@ namespace BobManager.API
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().SeedDatabase().Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

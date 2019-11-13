@@ -10,6 +10,8 @@ namespace BobManager.Domain.Mapping
         {
             CreateMap<Spending, SpendingDto>();
             CreateMap<SpendingCategory, SpendingCategoryDto>();
+            CreateMap<ToDo, ToDoDto>();
+            CreateMap<ToDoCategory, ToDoCategoryDto>();
             CreateMap<User, UserDto>();
         }
     }
