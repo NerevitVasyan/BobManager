@@ -1,3 +1,17 @@
-<p>
-  header works!
-</p>
+<div class="navbar navbar-inverse navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="assets/png/header/mini-logo.png" alt="Bob Manager" />
+    </a>
+    <button type="button" class="navbar-toggler collapsed" (click)="isCollapsed = !isCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbar" class="navbar-collapse collapse" [collapse]="!isCollapsed" [isAnimated]="true">
+      <div class="nav navbar-nav">
+        <div class="nav-item nav-link ml-3 mr-2"><a href="#">My Wallet</a></div>
+        <div class="nav-item nav-link ml-3 mr-2"><a href="#">My Tasks</a></div>
+        <div class="nav-item nav-link ml-3 mr-2"><a href="#">My Events</a></div>
+      </div>
+    </div>
+  </div>
+</div>
