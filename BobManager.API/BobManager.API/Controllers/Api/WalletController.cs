@@ -20,7 +20,22 @@ namespace BobManager.API.Controllers.Api
         [HttpGet]
         public Task<CollectionResultDto<SpendingDto>> GetSpendings()
         {
-                return walletService.GetSpendigs();
+            return walletService.GetSpendigs();
+        }
+        [HttpGet("GetCategory")]
+        public Task<CollectionResultDto<SpendingCategoryDto>> GetSpendingCategory()
+        {
+            return walletService.GetSpendingCategory();
+        }
+        [HttpPost("AddSpending")]
+        public Task AddSpending(SpendingDto spending)
+        {
+            return walletService.AddSpending(spending);
+        }
+        [HttpGet("GetSpendingForPage")]
+        public Task<PaginationDto<SpendingDto>> GetPage(int pageIndex)
+        {
+            return walletService.GetSpendingForPage(pageIndex);
         }
     }
 }

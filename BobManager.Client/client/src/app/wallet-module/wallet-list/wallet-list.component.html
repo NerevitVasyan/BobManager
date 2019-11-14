@@ -1,0 +1,34 @@
+<div>
+    <div class="container">
+        <div class="row">
+            <nav class="navbar fixed-bottom  scrolling-navbar">
+                <div class="offset-xl-11 offset-md-2">
+                    <button routerLink="/wallet/addspending" routerLinkActive="active" class="btn btn-success btn-sm ">
+                        AddSpending
+                    </button>
+                </div>
+            </nav>
+            <app-wallet-item *ngFor="let wallet of walletperpage.wallet" class="col-xl-8  offset-xl-3 offset-md-3"
+                [item]=wallet>
+            </app-wallet-item>
+        </div>
+        <div class="d-flex justify-content-center">
+            <pagination [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"
+                [boundaryLinks]="(totalpage>5)?true:false"  autoHide="true" previousText="&lsaquo;" [rotate]="true" [maxSize]="maxSize"
+                [totalItems]="totalwallet" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+            </pagination>
+        </div>
+    </div>
+</div>
+<!-- <div>
+    <div class="row">
+        <div class="col-xs-12 col-12">
+            <pagination [totalItems]="totalItems" [(ngModel)]="currentPage"></pagination>
+        </div> 
+        <pagination [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [boundaryLinks]="(totalpage>5)?true:false" previousText="&lsaquo;" [rotate]="true"
+            [maxSize]="maxSize" [totalItems]="totalItems" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+        </pagination>
+    </div>
+
+    <button type="button" class="btn btn-info" (click)="setPage(3)">Set current page to: 3</button>
+</div> -->

@@ -19,6 +19,12 @@ namespace BobManager.DataAccess.Repositories
             db = _db;
         }
 
+        public async Task<int> CountAll() => await db.Set<TEntity>().CountAsync();
+
+
+        public async Task<int> CountWhere(Expression<Func<TEntity, bool>> predicate)
+          => await db.Set<TEntity>().CountAsync(predicate);
+
         public async Task<TEntity> Create(TEntity entity)
         {
             var entry = await db.Set<TEntity>().AddAsync(entity);
@@ -79,6 +85,14 @@ namespace BobManager.DataAccess.Repositories
             return await includes.Aggregate(db.Set<TEntity>().Where(predicate),
                 (current, includeProperty) =>
                     current.Include(includeProperty)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetPaged(int startIndex, int count, params Expression<Func<TEntity, object>>[] includes)
+        {
+            startIndex = startIndex - 1;
+            return await includes.Aggregate(db.Set<TEntity>().AsQueryable(),
+                (current, includeProperty) =>
+                    current.Include(includeProperty)).Skip(startIndex*count).Take(count).ToListAsync();
         }
 
         public async Task Update(TEntity entity)

@@ -8,6 +8,20 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { WalletModule } from './wallet-module/wallet.module';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { RouterModule, Routes } from '@angular/router';
+
+
+const routes: Routes = [{
+      path: '',
+      component: HomeComponent
+   },
+   {
+      path: 'wallet',
+      loadChildren: () => import('./wallet-module/wallet.module').then(m => m.WalletModule)
+   }
+];
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
@@ -21,8 +35,10 @@ import { AuthModule } from './auth/auth.module';
    ],
    imports: [
       BrowserModule,
-      HttpClientModule,
       BrowserAnimationsModule,
+      HttpClientModule,
+      PaginationModule.forRoot(),
+      RouterModule.forRoot(routes),
       CollapseModule.forRoot(),
       AppRoutingModule,
       AuthModule

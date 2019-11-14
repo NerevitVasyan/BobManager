@@ -1,0 +1,22 @@
+.cardtitle{
+    color:white;
+    font-size:25px;
+}
+.cardtext{
+    font-size:18px;
+}
+.value{
+    font-size: 20px;
+    font-family: inherit;
+    font-weight: 800;
+    
+}
+.cardaside{
+    font-size:18px;
+}
+aside{
+    float: right;
+}
+.card-body, .card-footer{
+    background-color: #ecf0f1;
+}
