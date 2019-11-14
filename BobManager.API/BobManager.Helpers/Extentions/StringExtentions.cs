@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+
 namespace BobManager.Helpers.Extentions
 {
     public static class StringExtensions

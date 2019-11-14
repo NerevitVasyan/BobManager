@@ -14,8 +14,6 @@ namespace BobManager.Helpers.Loggers
         public bool IsIssetFile(string path, out LoggingFile file)
         {
             string fullPath = Path.GetFullPath(path);
-            if (!File.Exists(fullPath))
-                throw new ArgumentException("File doesn't exists!", "path");
             file = Files.FirstOrDefault((x) => x.FullPath == fullPath);
             return file != null;
         }
@@ -30,6 +28,7 @@ namespace BobManager.Helpers.Loggers
         { 
             if (file == null)
                 throw new ArgumentException("File can't be null", "file");
+
             LoggingFile outFile;
             if (!IsIssetFile(file.FullPath, out outFile))
             {
