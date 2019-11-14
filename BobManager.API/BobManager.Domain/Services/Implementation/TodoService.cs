@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using BobManager.DataAccess;
 using BobManager.DataAccess.Entities;
 using BobManager.DataAccess.Interfaces;
 using BobManager.Domain.Services.Abstraction;
 using BobManager.Dto.DtoModels;
 using BobManager.Dto.DtoResults;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,24 +15,49 @@ namespace BobManager.Domain.Services.Implementation
 {
     public class TodoService : ITodoService
     {
-        private readonly IGenericRepository<ToDo> _repository;
-        private readonly IMapper _mapper;
+        private readonly ApplicationContext _context;
 
-        public TodoService(IGenericRepository<ToDo> repository, IMapper mapper)
+        public TodoService(ApplicationContext context)
         {
-            _repository = repository;
-            _mapper = mapper;
+            _context = context;
         }
-        public async Task<CollectionResultDto<ToDoDto>> GetTodos()
+
+        public void Add<T>(T entity) where T : class
         {
-            var spending = await _repository.GetAllInclude(x => x.ToDoCategory);
-            var mapped = _mapper.Map<IEnumerable<ToDo>, ICollection<ToDoDto>>(spending);
-            return new CollectionResultDto<ToDoDto>
-            {
-                Data = mapped,
-                IsSuccessful = true,
-                Count = mapped.Count
-            };
+            throw new NotImplementedException();
         }
+
+        public void Delete<T>(T entity) where T : class
+        {
+            _context.Remove(entity);
+        }
+
+        public Task<ToDo> GetTodo(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<ToDo>> GetTodos()
+        {
+            var users = await _context.ToDos.Include(p => p.ToDoCategory).ToListAsync();
+            return users;
+        }
+
+        public Task<bool> SaveAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public async Task<CollectionResultDto<ToDoDto>> GetTodos()
+        //{
+        //    var todo = await _repository.GetAllInclude(x => x.ToDoCategory);
+        //    var mapped = _mapper.Map<IEnumerable<ToDo>, ICollection<ToDoDto>>(todo);
+        //    return new CollectionResultDto<ToDoDto>
+        //    {
+        //        Data = mapped,
+        //        IsSuccessful = true,
+        //        Count = mapped.Count
+        //    };
+        //}
     }
 }

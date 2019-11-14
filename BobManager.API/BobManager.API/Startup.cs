@@ -69,6 +69,7 @@ namespace BobManager.API
             services.AddScoped<DbContext, ApplicationContext>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IWalletService, WalletService>();
+            services.AddScoped<ITodoService, TodoService>();
             services.AddScoped<IAccountService, AccountService>();
 
             services.AddSingleton<IMapper>(new MapperConfiguration(cfg =>
@@ -125,9 +126,8 @@ namespace BobManager.API
                 app.UseHsts();
             }
 
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
-            app.UseHttpsRedirection();
-            app.UseMiddlewareException();
             app.UseMvc();
         }
     }
