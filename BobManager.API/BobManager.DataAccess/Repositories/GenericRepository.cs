@@ -25,7 +25,7 @@ namespace BobManager.DataAccess.Repositories
         public async Task<int> CountWhere(Expression<Func<TEntity, bool>> predicate)
           => await db.Set<TEntity>().CountAsync(predicate);
 
-        public async Task Create(TEntity entity)
+        public async Task<TEntity> Create(TEntity entity)
         {
             var entry = await db.Set<TEntity>().AddAsync(entity);
             await db.SaveChangesAsync();
