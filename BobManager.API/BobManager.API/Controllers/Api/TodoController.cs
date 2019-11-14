@@ -36,9 +36,8 @@ namespace BobManager.API.Controllers.Api
         }
 
 
-        [HttpPost]
-        [Route("CreateTodo")]
-        public IActionResult CreateTodo([FromBody] ToDoDto model)
+        [HttpPost("CreateTodo")]
+        public IActionResult CreateTodo(ToDoDto model)
         {
             try
             {

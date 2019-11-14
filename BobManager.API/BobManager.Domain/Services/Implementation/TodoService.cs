@@ -16,15 +16,32 @@ namespace BobManager.Domain.Services.Implementation
     public class TodoService : ITodoService
     {
         private readonly ApplicationContext _context;
+        private readonly IMapper _mapper;
+        private readonly IGenericRepository<ToDoCategory> _categoryrepository;
+        private readonly IGenericRepository<ToDo> _repository;
 
-        public TodoService(ApplicationContext context)
+
+        public TodoService(ApplicationContext context, IMapper mapper, IGenericRepository<ToDoCategory> categoryrepository,
+            IGenericRepository<ToDo> repository)
         {
             _context = context;
+            _mapper = mapper;
+            _categoryrepository = categoryrepository;
+            _repository = repository;
         }
 
-        public void Add<T>(T entity) where T : class
+        public async Task CreateTodo(ToDoDto toDoDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var mapped = _mapper.Map<ToDoDto, ToDo>(toDoDto);
+                mapped.ToDoCategory = await _categoryrepository.Find(mapped.ToDoCategoryId);
+                await _repository.Create(mapped);
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void Delete<T>(T entity) where T : class

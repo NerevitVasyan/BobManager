@@ -10,7 +10,7 @@ namespace BobManager.Domain.Services.Abstraction
 {
     public interface ITodoService
     {
-        void Add<T>(T entity) where T : class;
+        Task CreateTodo(ToDoDto toDoDto);
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveAll();
         Task<IEnumerable<ToDo>> GetTodos();
