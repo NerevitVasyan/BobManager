@@ -13,6 +13,8 @@ namespace BobManager.Domain.Mapping
             CreateMap<ToDo, ToDoDto>();
             CreateMap<ToDoCategory, ToDoCategoryDto>();
             CreateMap<User, UserDto>();
+            CreateMap<UsersGroup, UsersGroupDto>();
+            CreateMap<Group, GroupDto>();
         }
     }
 }

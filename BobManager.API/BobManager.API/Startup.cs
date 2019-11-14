@@ -52,6 +52,24 @@ namespace BobManager.API
             clientErrManager = new ClientErrorManager();
             clientErrManager.AddError(1, "Invalid login!");
             clientErrManager.AddError(2, "Error register!");
+            clientErrManager.AddError(3, "You are not signed in!");
+            clientErrManager.AddError(4, "Input name of group!");
+            clientErrManager.AddError(5, "Too long group name!");
+            clientErrManager.AddError(6, "No user indefier!");
+            clientErrManager.AddError(7, "Incorrect user indefier!");
+            clientErrManager.AddError(8, "You can't add yourself to group!");
+            clientErrManager.AddError(9, "Incorrect role indefier!");
+            clientErrManager.AddError(10, "This user can't be a creator!");
+            clientErrManager.AddError(11, "Incorrect group!");
+            clientErrManager.AddError(12, "You can't remove this group!");
+            clientErrManager.AddError(13, "Creator can't exit from group!");
+            clientErrManager.AddError(14, "User is already in group!");
+            clientErrManager.AddError(15, "None users!");
+            clientErrManager.AddError(16, "You can't remove users!");
+            clientErrManager.AddError(17, "Incorrect user!");
+            clientErrManager.AddError(18, "No data!");
+            clientErrManager.AddError(19, "Incorrect count!");
+            clientErrManager.AddError(20, "Incorrect offset!");
         }
 
         public IConfiguration Configuration { get; }
@@ -71,6 +89,7 @@ namespace BobManager.API
             services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<ITodoService, TodoService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IGroupService, GroupService>();
 
             services.AddSingleton<IMapper>(new MapperConfiguration(cfg =>
             {
@@ -130,6 +149,8 @@ namespace BobManager.API
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
+            app.UseHttpsRedirection();
+            app.UseMiddlewareException();
             app.UseMvc();
         }
     }

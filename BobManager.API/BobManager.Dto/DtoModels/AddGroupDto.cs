@@ -4,11 +4,9 @@ using System.Text;
 
 namespace BobManager.Dto.DtoModels
 {
-    public class GroupDto
+    public class AddGroupDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
-
-        public IDictionary<string, int> Users { get; set; } // user, role
+        public Dictionary<string, int> Users { get; set; } // User id, role id
     }
 }
