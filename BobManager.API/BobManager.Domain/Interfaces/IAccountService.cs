@@ -8,5 +8,8 @@ namespace BobManager.Domain.Interfaces
     {
         Task<ResultDto> Register(RegisterDto entity);
         Task<ResultDto> Login(LoginDto entity);
+        Task<ResultDto> ForgotPassword(string email);
+
+
     }
 }

@@ -6,17 +6,21 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
    declarations: [
       AppComponent,
       HomeComponent,
       HeaderComponent,
-      FooterComponent
+      FooterComponent,
+      ForgotPasswordComponent
    ],
    imports: [
       BrowserModule,
-      HttpClientModule
+      HttpClientModule,
+      AppRoutingModule
    ],
    providers: [],
    bootstrap: [

@@ -43,5 +43,25 @@ namespace BobManager.API.Controllers
                 throw exception;
             }
         }
+
+
+        [HttpPost]
+        public async Task<ResultDto> ForgotPassword(ForgotPasswordDto model)
+        {
+            try
+            {
+                return await _accountService.ForgotPassword(model.Email);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
+
+        public class ForgotPasswordDto
+        {
+            public string Email { get; set; }
+        }
+
     }
 }
