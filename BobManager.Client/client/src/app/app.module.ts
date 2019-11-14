@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -20,6 +22,8 @@ import { AuthModule } from './auth/auth.module';
    imports: [
       BrowserModule,
       HttpClientModule,
+      BrowserAnimationsModule,
+      CollapseModule.forRoot(),
       AppRoutingModule,
       AuthModule
    ],
