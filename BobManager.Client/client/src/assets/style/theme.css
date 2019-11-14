@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #1F65AC;
+}
+
 ul {
     margin: 0;
 }
@@ -37,6 +41,48 @@ img {
 
 p {
     margin: 0;
+}
+
+a {
+    color: black;
+}
+
+.navbar-toggler {
+    float: none;
+}
+
+.nav {
+    text-align: right;
+}
+
+.page-footer {
+    background-color: #F8F9FA;
+}
+
+a:hover {
+    font-size: 18px;
+    color: #0A5E70;
+}
+
+.container {
+  background:#f5f6fa;
+}
+
+.card-title {
+    font-size: 26px;
+}
+
+.card-text {
+    font-size: 17px;
+}
+
+.logo {
+    text-align: center;
+}
+
+.card-img {
+   height: 200px;
+   width: 200px;
 }
 
 .table-responsive {
@@ -159,7 +205,7 @@ strong {
 .title-6 {
     font-size: 24px;
     font-weight: 500;
-    color: #fff;
+    color: #393939;
 }
 
 .heading-title {
@@ -416,11 +462,13 @@ section {
     -moz-transition: all 0.3s ease;
     transition: all 0.3s ease;
     cursor: pointer;
+    font-size: 24px;
 }
 
 .au-btn:hover {
     color: #fff;
     background: #3868cd;
+    font-size: 20px;
 }
 
 .au-btn--blue2 {
@@ -442,7 +490,19 @@ section {
 }
 
 .au-btn--blue {
-    background: #4272d7;
+    background: #2980b9;
+}
+
+.au-btn--blue:hover {
+    background: #1B547A ;
+}
+
+.au-btn--dark-blue {
+    background: #2c3e50;
+}
+
+.au-btn--dark-blue:hover {
+    background: #5F6F7E;
 }
 
 .au-btn--green {
@@ -955,6 +1015,15 @@ section {
     }
 }
 
+.card-body {
+    background-color: #3755A6;
+}
+
+.card-header, .card-footer{
+    background-color: #2C3E50;
+    color: white;
+}
+
 .rs-select2--light .select2-container--default .select2-selection--single {
     border: none;
     outline: none;
@@ -1111,6 +1180,7 @@ section {
 
 .card {
     margin-bottom: 30px;
+    border: none;
 }
 
 .input-group-addon {
@@ -14606,4 +14676,8 @@ section {
 
 .vue-lists ul, .vue-lists ol {
     padding-left: 30px;
+}
+
+.bg-blue{
+    background-color: rgb(0, 0, 0);
 }

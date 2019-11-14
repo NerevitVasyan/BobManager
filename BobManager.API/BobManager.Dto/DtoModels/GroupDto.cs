@@ -8,5 +8,7 @@ namespace BobManager.Dto.DtoModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public IDictionary<string, int> Users { get; set; } // user, role
     }
 }
