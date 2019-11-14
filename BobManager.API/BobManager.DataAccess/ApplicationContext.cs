@@ -1,4 +1,6 @@
-﻿using BobManager.DataAccess.Entities;
+﻿using BobManager.DataAccess.Configuration;
+using BobManager.DataAccess.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,10 +8,9 @@ namespace BobManager.DataAccess
 {
     public class ApplicationContext : IdentityDbContext<User>
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
-        {
-            Database.EnsureCreated();
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) {
         }
+
         public DbSet<CalendarEvent> CalendarEvents { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupRole> GroupRoles { get; set; }
