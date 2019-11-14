@@ -11,7 +11,8 @@ namespace BobManager.Domain.Mapping
             CreateMap<SpendingDto, Spending>().ReverseMap();
             CreateMap<SpendingCategoryDto, SpendingCategory>().ReverseMap();
             CreateMap<User, UserDto>();
-            //CreateMap<SpendingDto, Spending>();
+            CreateMap<UsersGroup, UsersGroupDto>();
+            CreateMap<Group, GroupDto>();
         }
     }
 }
