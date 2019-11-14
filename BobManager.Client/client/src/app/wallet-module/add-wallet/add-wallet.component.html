@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Spending Value</label>
+        <input [(ngModel)]="wallet.value" type="number" class="form-control" id="exampleFormControlInput1"
+            placeholder="123">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Category</label>
+        <select [(ngModel)]="category" class="form-control" id="exampleFormControlSelect1"
+            placeholder="Pick a category...">
+            <option *ngFor="let category of walletsCategories" [value]=category.name>{{category.name}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">{{ date | date:'longDate'}} </label>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Spending Description</label>
+        <textarea [(ngModel)]="wallet.description" class="form-control" id="exampleFormControlTextarea1"
+            rows="3"></textarea>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg btn-block" (click)="addClick()">Add new Spending</button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="cancelClick()">Cancel</button>
+</div>

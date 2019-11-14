@@ -1,0 +1,41 @@
+<!-- <div class="card">
+    <div class="card-header text-center" [style.background-color]=item.spendingCategory.color>
+        <strong class="card-title cardtitle">{{item.spendingCategory.name}}</strong> </div>
+    <div class="card-body">
+        <h4 class="card-title mb-3 value">{{item.value}} UAH</h4>
+        <p class="card-text cardtext">Description:</p>
+        <p class="card-text cardtext">{{item.description}}</p>
+    </div>
+    <div class="card-footer">
+        <p class="card-text text-wrap text-center cardtext">
+            {{item.date|date:'longDate'}}
+        </p>
+    </div>
+</div> -->
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <p class="col-3 text-center">Value:</p>
+            <p class="col-4 text-center">Date:</p>
+            <p class="col-3 text-center">Category:</p>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row" style="padding-top:3%">
+            <h4 class="col-3 ">{{item.value}} uah</h4>
+            <p class="col-4 text-center">{{item.date|date:'longDate'}}</p>
+            <p class="col-3 text-center">{{item.spendingCategory.name}}</p>
+            <div class="col-2 text-center">
+                <fa-icon (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+                    aria-controls="collapseBasic" [icon]="isCollapsed?faChevronDown:faChevronUp"></fa-icon>
+            </div>
+
+        </div>
+        <hr>
+        <div id="collapseBasic" [isAnimated]="true" [collapse]="isCollapsed">
+            <p class="card-text cardtext">Description:</p>
+            <p class="card-text cardtext">{{item.description}}</p>
+        </div>
+    </div>
+</div>
