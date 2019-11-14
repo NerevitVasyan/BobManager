@@ -32,5 +32,10 @@ namespace BobManager.API.Controllers.Api
         {
             return walletService.AddSpending(spending);
         }
+        [HttpGet("GetSpendingForPage")]
+        public Task<PaginationDto<SpendingDto>> GetPage(int pageIndex)
+        {
+            return walletService.GetSpendingForPage(pageIndex);
+        }
     }
 }

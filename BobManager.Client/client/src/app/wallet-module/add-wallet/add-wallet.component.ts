@@ -2,6 +2,7 @@ import { Component, OnInit, ɵLocaleDataIndex } from '@angular/core';
 import { WalletCategory } from 'src/app/models/wallet-category';
 import { WalletService } from 'src/app/services/wallet.service';
 import { Wallet } from 'src/app/models/wallet';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-wallet',
@@ -13,7 +14,7 @@ export class AddWalletComponent implements OnInit {
   wallet: Wallet;
   date: number;
   category: string;
-  constructor(private walletService: WalletService) { }
+  constructor(private walletService: WalletService,private router: Router) { }
 
   ngOnInit() {
     this.wallet = new Wallet();
@@ -33,8 +34,11 @@ export class AddWalletComponent implements OnInit {
         this.wallet.spendingCategory = element;
       }
     });
-    console.log(this.wallet);
     this.walletService.addWallet(this.wallet).subscribe(x => { })
+    this.router.navigate(['/wallet/1']);
+  }
+  cancelClick(){
+    this.router.navigate(['/wallet/1']);
   }
 
 

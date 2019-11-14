@@ -6,9 +6,20 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { WalletModule } from './wallet-module/wallet.module';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
-
+const routes: Routes = [{
+      path: '',
+      component: HomeComponent
+   },
+   {
+      path: 'wallet',
+      loadChildren: () => import('./wallet-module/wallet.module').then(m => m.WalletModule)
+   }
+];
 
 @NgModule({
    declarations: [
@@ -19,8 +30,10 @@ import { WalletModule } from './wallet-module/wallet.module';
    ],
    imports: [
       BrowserModule,
+      BrowserAnimationsModule,
       HttpClientModule,
-      WalletModule
+      PaginationModule.forRoot(),
+      RouterModule.forRoot(routes)
    ],
    providers: [],
    bootstrap: [

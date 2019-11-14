@@ -9,7 +9,6 @@ namespace BobManager.Domain.Services.Abstraction
         Task<CollectionResultDto<SpendingDto>> GetSpendigs();
         Task AddSpending(SpendingDto spending);
         Task<CollectionResultDto<SpendingCategoryDto>> GetSpendingCategory();
-        Task<int> GetSpendigsCount();
-        Task<CollectionResultDto<SpendingDto>> GetSpendingForPage(int pageIndex);
+        Task<PaginationDto<SpendingDto>> GetSpendingForPage(int pageIndex);
     }
 }

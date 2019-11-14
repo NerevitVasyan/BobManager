@@ -9,28 +9,31 @@ import { FormsModule } from '@angular/forms'
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { RouterModule, Routes } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
+const routes: Routes = [
+  { path: '', component: WalletListComponent },
+  { path: 'addspending', component: AddWalletComponent },
+  { path: ':page', component: WalletListComponent },
 
-
-
-
-
-
-
+];
 
 @NgModule({
   declarations: [WalletItemComponent, WalletListComponent, AddWalletComponent],
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
     CollapseModule.forRoot(),
-    BrowserAnimationsModule,
     FontAwesomeModule,
+    PaginationModule.forRoot(),
+    NgxPaginationModule,
+    RouterModule.forChild(routes)
 
   ],
   providers: [WalletService],
-  exports: [WalletListComponent, WalletItemComponent, AddWalletComponent]
+  exports: [WalletListComponent, WalletItemComponent, AddWalletComponent, RouterModule]
 })
 export class WalletModule { }
 

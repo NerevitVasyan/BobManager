@@ -4,6 +4,6 @@ export const ApiRoutes = {
     wallet: "wallet",
     addWallet:"wallet/AddSpending",
     getWalletCategory:"wallet/GetCategory",
-    getWalletCount:"wallet/GetSpendigsCount",
-    getWalletForPage:"wallet/GetSpending"
+    getWalletCount:"wallet/GetCount",
+    getWalletForPage:"wallet/GetSpendingForPage"
 }

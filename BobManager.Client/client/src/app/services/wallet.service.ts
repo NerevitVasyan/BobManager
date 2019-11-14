@@ -22,9 +22,13 @@ export class WalletService extends BaseService {
     console.log("hello")
     return this.post(ApiRoutes.addWallet, item);
   }
-  getWalletForPage(pageIndex: number) {
-    console.log("hello")
-    return this.post(ApiRoutes.getWalletForPage, pageIndex);
+  getWalletForPage(pageIndex: number): Observable<any> {
+    if(pageIndex!=undefined){
+    return this.get(ApiRoutes.getWalletForPage+"?pageIndex="+pageIndex);
+    }
+    else{
+      return this.get(ApiRoutes.getWalletForPage);
+    }
   }
 }
 
