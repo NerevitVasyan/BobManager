@@ -43,6 +43,27 @@ p {
     margin: 0;
 }
 
+a {
+    color: black;
+}
+
+.navbar-toggler {
+    float: none;
+}
+
+.nav {
+    text-align: right;
+}
+
+.page-footer {
+    background-color: #F8F9FA;
+}
+
+a:hover {
+    font-size: 18px;
+    color: #0A5E70;
+}
+
 .container {
   background:#f5f6fa;
 }
