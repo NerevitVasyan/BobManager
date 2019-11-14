@@ -1,0 +1,30 @@
+<div class="login-wrap">
+    <div class="login-content">
+        <div class="login-form">
+            <div>
+                <label>Email Address</label>
+                <input class="au-input au-input--full" type="email" placeholder="Email" [(ngModel)]="user.email">
+            </div>
+            <div>
+                <label>Password</label>
+                <input class="au-input au-input--full" type="password" placeholder="Password"
+                    [(ngModel)]="user.password">
+            </div>
+            <div class="login-checkbox">
+                <label>
+                    <input type="checkbox" [(ngModel)]="user.isRemember">Remember Me
+                </label>
+                <label>
+                    <a href="#">Forgotten Password?</a>
+                </label>
+            </div>
+            <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit" (click)="login()">sign in</button>
+            <div class="register-link">
+                <p>
+                    Don't you have account?
+                    <a href="#">Sign Up Here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

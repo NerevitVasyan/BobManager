@@ -8,13 +8,13 @@ import { baseAPI } from 'src/app/consts/const'
 })
 
 export class BaseService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   public get(path: string) {
-    return this.httpClient.get(baseAPI + '/' + path);
+    return this.httpClient.get(baseAPI + path);
   }
 
   public post(path: string, data: any) {
-    return this.httpClient.post(baseAPI + '/' + path, data);
+    return this.httpClient.post(baseAPI + path, data);
   }
 }
