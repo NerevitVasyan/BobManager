@@ -38,7 +38,7 @@ import { AuthModule } from './auth/auth.module';
       BrowserAnimationsModule,
       HttpClientModule,
       PaginationModule.forRoot(),
-      RouterModule.forRoot(routes)
+      RouterModule.forRoot(routes),
       CollapseModule.forRoot(),
       AppRoutingModule,
       AuthModule

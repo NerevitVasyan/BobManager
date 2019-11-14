@@ -14,7 +14,7 @@
         </div>
         <div class="d-flex justify-content-center">
             <pagination [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"
-                [boundaryLinks]="(totalpage>5)?true:false" previousText="&lsaquo;" [rotate]="true" [maxSize]="maxSize"
+                [boundaryLinks]="(totalpage>5)?true:false"  autoHide="true" previousText="&lsaquo;" [rotate]="true" [maxSize]="maxSize"
                 [totalItems]="totalwallet" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
             </pagination>
         </div>
