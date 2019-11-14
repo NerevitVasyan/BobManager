@@ -7,3 +7,8 @@ export const ApiRoutes = {
     getWalletCount:"wallet/GetCount",
     getWalletForPage:"wallet/GetSpendingForPage"
 }
+
+export const AuthRoutes = {
+    register: 'account/register',
+    login: 'account/login'
+};

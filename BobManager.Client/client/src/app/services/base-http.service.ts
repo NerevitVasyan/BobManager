@@ -8,7 +8,7 @@ import { baseAPI } from 'src/app/consts/const'
 })
 
 export class BaseService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   public get(path: string) {
     return this.httpClient.get(baseAPI + path);
