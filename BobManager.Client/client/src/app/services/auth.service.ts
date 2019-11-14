@@ -1,44 +1,27 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { RegisterDto } from '../models/register.model';
+import { LoginDto } from '../models/login.model';
+import { BaseService } from './base-http.service';
+import { AuthRoutes } from './../consts/const'
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService extends BaseService {
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
-  readonly BaseURI = 'API URL'; //!!!!!!!!!!!!!!!!!
+  private jwtHelper = new JwtHelperService();
+  decodedToken: any;
 
-  registerModel = this.fb.group({
-    Email: ['', Validators.email],
-    Passwords: this.fb.group({
-      Password: ['', [Validators.required, Validators.minLength(4)]],
-      ConfirmPassword: ['', Validators.required]
-    },
-      { validator: this.comparePasswords })
-  });
-
-  comparePasswords(fb: FormGroup) {
-    let confirmPswrdCtrl = fb.get('ConfirmPassword');
-    if (confirmPswrdCtrl.errors == null || 'passwordMismatch' in confirmPswrdCtrl.errors) {
-      if (fb.get('Password').value != confirmPswrdCtrl.value)
-        confirmPswrdCtrl.setErrors({ passwordMismatch: true });
-      else
-        confirmPswrdCtrl.setErrors(null);
-    }
+  register(user: RegisterDto): Observable<any> {
+    return this.post(AuthRoutes.register, user);
   }
 
-  register() {
-    var body = {
-      Email: this.registerModel.value.Email,
-      FullName: this.registerModel.value.FullName,
-      Password: this.registerModel.value.Passwords.Password
-    };
-    return this.http.post(this.BaseURI + '/Account/Register', body);
+  login(user: LoginDto): Observable<any>  {
+     return this.post(AuthRoutes.login, user);
   }
 
-  login(formData) {
-    return this.http.post(this.BaseURI + '/Account/Login', formData);
+  private getTokenPayload(): string {
+    return this.jwtHelper.decodeToken(localStorage.getItem('token'));
   }
 }
