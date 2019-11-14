@@ -22,8 +22,8 @@ namespace BobManager.API.Controllers.Api
         private readonly ClientErrorManager clientErrorManager;
 
         public GroupController(IGroupService groupService,
-                                SignInManager<User> signInManager,
-                                ClientErrorManager clientErrorManager)
+                               SignInManager<User> signInManager,
+                               ClientErrorManager clientErrorManager)
         {
             this.groupService = groupService;
             this.signInManager = signInManager;
