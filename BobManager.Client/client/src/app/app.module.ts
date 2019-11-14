@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
+import { AppRoutingModule } from './app-routing.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
    declarations: [
@@ -22,6 +24,8 @@ import { FooterComponent } from './footer/footer.component';
       HttpClientModule,
       BrowserAnimationsModule,
       CollapseModule.forRoot(),
+      AppRoutingModule,
+      AuthModule
    ],
    providers: [],
    bootstrap: [
@@ -29,6 +33,3 @@ import { FooterComponent } from './footer/footer.component';
    ]
 })
 export class AppModule { }
-
-
-
