@@ -7,9 +7,11 @@ namespace BobManager.DataAccess.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        Task Create(TEntity entity);
+        Task<TEntity> Create(TEntity entity);
+        Task<IEnumerable<TEntity>> Create(IEnumerable<TEntity> entities);
         Task Update(TEntity entity);
         Task Delete(TEntity entity);
+        Task Delete(IEnumerable<TEntity> entity);
         Task<IEnumerable<TEntity>> GetAll();
         Task<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> GetAllInclude(params Expression<Func<TEntity, object>>[] includes);
